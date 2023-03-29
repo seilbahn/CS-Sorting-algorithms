@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Sorting algorithms</value>
+  </data>
+  <data name="ArrayType" xml:space="preserve">
+    <value>Type of the array</value>
+  </data>
+  <data name="AverageCase" xml:space="preserve">
+    <value>Average case</value>
+  </data>
+  <data name="BestCase" xml:space="preserve">
+    <value>Best case</value>
+  </data>
+  <data name="BogoSort" xml:space="preserve">
+    <value>Bogo sort</value>
+  </data>
+  <data name="BubbleSort" xml:space="preserve">
+    <value>Bubble sort</value>
+  </data>
+  <data name="CocktailSort" xml:space="preserve">
+    <value>Cocktail sort</value>
+  </data>
+  <data name="CombSort" xml:space="preserve">
+    <value>Comb sort</value>
+  </data>
+  <data name="Comparisons" xml:space="preserve">
+    <value>Comparisons</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="DefaultSort" xml:space="preserve">
+    <value>Default sort</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="FewUnique" xml:space="preserve">
+    <value>Few unique</value>
+  </data>
+  <data name="GnomeSort" xml:space="preserve">
+    <value>Gnome sort</value>
+  </data>
+  <data name="HeapSort" xml:space="preserve">
+    <value>Heap sort</value>
+  </data>
+  <data name="InputArray" xml:space="preserve">
+    <value>Input array</value>
+  </data>
+  <data name="InputArrayLength" xml:space="preserve">
+    <value>Input array length</value>
+  </data>
+  <data name="InsertionSort" xml:space="preserve">
+    <value>Insertion sort</value>
+  </data>
+  <data name="IsArraySorted" xml:space="preserve">
+    <value>Is the array sorted?</value>
+  </data>
+  <data name="IsTheAlgorithmStabil" xml:space="preserve">
+    <value>Is the algorithm stabil?</value>
+  </data>
+  <data name="MergeSort" xml:space="preserve">
+    <value>Merge sort</value>
+  </data>
+  <data name="ms" xml:space="preserve">
+    <value>ms</value>
+  </data>
+  <data name="NearlySorted" xml:space="preserve">
+    <value>Nearly sorted</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="OutputArray" xml:space="preserve">
+    <value>Output array</value>
+  </data>
+  <data name="OutputArrayLength" xml:space="preserve">
+    <value>Output array length</value>
+  </data>
+  <data name="QuickSort" xml:space="preserve">
+    <value>Quick sort</value>
+  </data>
+  <data name="Random" xml:space="preserve">
+    <value>Random</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="ReportsFolderName" xml:space="preserve">
+    <value>Sorting algorithms reports</value>
+  </data>
+  <data name="Reversed" xml:space="preserve">
+    <value>Reversed</value>
+  </data>
+  <data name="SelectionSort" xml:space="preserve">
+    <value>Selection sort</value>
+  </data>
+  <data name="ShellSort" xml:space="preserve">
+    <value>Shell sort</value>
+  </data>
+  <data name="Sorted" xml:space="preserve">
+    <value>Sorted</value>
+  </data>
+  <data name="SortingAlgorithm" xml:space="preserve">
+    <value>Sorting algorithm</value>
+  </data>
+  <data name="SpaceComplexity" xml:space="preserve">
+    <value>Space complexity</value>
+  </data>
+  <data name="StoogeSort" xml:space="preserve">
+    <value>Stooge sort</value>
+  </data>
+  <data name="Swaps" xml:space="preserve">
+    <value>Swaps</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="TimeComplexity" xml:space="preserve">
+    <value>Time complexity</value>
+  </data>
+  <data name="TreeSort" xml:space="preserve">
+    <value>Tree sort</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="WorstCase" xml:space="preserve">
+    <value>Worst case</value>
+  </data>
+</root>
