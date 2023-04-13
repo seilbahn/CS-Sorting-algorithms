@@ -11,16 +11,19 @@ namespace Sorting
     /// The algorithm is defined as follows:<br/>
     /// If the value at the start is larger than the value at the end, swap them.<br/>
     /// If there are 3 or more elements in the list, then:<br/>
-    /// 1. Stooge sort the initial 2/3 of the list;<br/>
-    /// 2. Stooge sort the final 2/3 of the list;<br/>
+    /// 1.Stooge sort the initial 2/3 of the list;<br/>
+    /// 2.Stooge sort the final 2/3 of the list;<br/>
     /// 3.Stooge sort the initial 2/3 of the list again.<br/>
     /// It is important to get the integer sort size used in the recursive calls by rounding the 2/3 upwards,
     /// e.g. rounding 2/3 of 5 should give 4 rather than 3, as otherwise the sort can fail on certain data. 
     /// </summary>
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>
-    public class StoogeSort<T> : Algorithm<T>, ISortable<T> where T : IComparable
+    public class StoogeSort<T> : Algorithm<T> where T : IComparable
     {
+        /// <summary>
+        /// Initializes a new instance of the StoogeSort class.
+        /// </summary>
         public StoogeSort()
         {
             Name = SortingAlgorithm.StoogeSort;
@@ -32,6 +35,7 @@ namespace Sorting
             WorstCaseSpaceComplexity = "O(n)";
         }
 
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         public override T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending)
         {
             T[] output = new T[input.Length];
@@ -41,12 +45,12 @@ namespace Sorting
             Time = new Stopwatch();
 
             Time.Start();
-            ToSort(output, sortingType);
+            StartSort(output, sortingType);
             Time.Stop();
             return output;
         }
 
-        private T[] ToSort(T[] array, int startIndex, int endIndex, SortingType sortingType)
+        private T[] StartSort(T[] array, int startIndex, int endIndex, SortingType sortingType)
         {
             if (Compare(array[startIndex], array[endIndex], sortingType) > 0)
             {
@@ -55,16 +59,16 @@ namespace Sorting
             if (endIndex - startIndex > 1)
             {
                 int len = (endIndex - startIndex + 1) / 3;
-                ToSort(array, startIndex, endIndex - len, sortingType);
-                ToSort(array, startIndex + len, endIndex, sortingType);
-                ToSort(array, startIndex, endIndex - len, sortingType);
+                StartSort(array, startIndex, endIndex - len, sortingType);
+                StartSort(array, startIndex + len, endIndex, sortingType);
+                StartSort(array, startIndex, endIndex - len, sortingType);
             }
             return array;
         }
 
-        private T[] ToSort(T[] array, SortingType sortingType)
+        private T[] StartSort(T[] array, SortingType sortingType)
         {
-            return ToSort(array, 0, array.Length - 1, sortingType);
+            return StartSort(array, 0, array.Length - 1, sortingType);
         }
     }
 }

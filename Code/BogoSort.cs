@@ -7,12 +7,17 @@ namespace Sorting
     /// The function successively generates permutations of its input until it finds one that is sorted.<br/>
     /// It is not considered one of efficient algorithms for sorting.<br/>
     /// It is recommended to sort with this algorithm no more than 10 elements,
-    /// because of the very bad time complexity (in case of using a standart low-mid desktop-CPU).
+    /// because of the very bad time complexity (in case of using a standart low-mid desktop-CPU).<br/>
+    /// The amount of comparizons is zero, because the algorithm does not compare keys,
+    /// though there is a method for checking if the array is sorted.
     /// </summary>
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>
-    public class BogoSort<T> : Algorithm<T>, ISortable<T> where T : IComparable
+    public class BogoSort<T> : Algorithm<T> where T : IComparable
     {
+        /// <summary>
+        /// Initializes a new instance of the BogoSort class.
+        /// </summary>
         public BogoSort()
         {
             Name = SortingAlgorithm.BogoSort;
@@ -24,6 +29,7 @@ namespace Sorting
             WorstCaseSpaceComplexity = "O(1)";
         }
 
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         public override T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending)
         {
             T[] output = new T[input.Length];
@@ -33,21 +39,12 @@ namespace Sorting
             Time = new Stopwatch();
 
             Time.Start();
-            ToSort(output);
+            while (!AdvancedArray<T>.IsSorted(output))
+            {
+                output = RandomPermutation(output);
+            }
             Time.Stop();
             return output;
-        }
-
-        private bool IsSorted(T[] array)
-        {
-            for (int i = 0; i < array.Length - 1; i++)
-            {
-                if (Compare(array[i], array[i + 1]) > 0)
-                {
-                    return false;
-                }
-            }
-            return true;
         }
 
         private T[] RandomPermutation(T[] array)
@@ -59,15 +56,6 @@ namespace Sorting
                 n--;
                 int i = random.Next(n + 1);
                 Swap(array, i, n);
-            }
-            return array;
-        }
-
-        private T[] ToSort(T[] array)
-        {
-            while (!IsSorted(array))
-            {
-                array = RandomPermutation(array);
             }
             return array;
         }

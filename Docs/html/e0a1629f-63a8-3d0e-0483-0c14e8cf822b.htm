@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html ><html lang="en-US"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="shortcut icon" href="../icons/favicon.ico" /><link rel="stylesheet" href="../css/bulma.css" /><link rel="stylesheet" href="../css/font-awesome.min.css" /><link rel="stylesheet" href="../css/presentationStyle.css" /><link rel="stylesheet" href="../css/vs.min.css" /><script src="../scripts/jquery-3.5.1.min.js"></script><script src="../scripts/clipboard.min.js"></script><script src="../scripts/highlight.min.js"></script><script src="../scripts/presentationStyle.js"></script><title>Sorting Namespace</title><meta name="Title" content="Sorting" /><meta name="Help.Id" content="N:Sorting" /><meta name="Help.ContentType" content="Reference" /><meta name="container" content="Sorting" /><meta name="guid" content="e0a1629f-63a8-3d0e-0483-0c14e8cf822b" /><meta name="Description" content="The namespace Sorting is the main namespace in this project. It contains classes, interfaces and enumerations for the project. There is also the namespace ConsoleTable inside this library, but it is used for internal purposes." /><meta name="tocFile" content="../toc/Root.xml" /></head><body><div class="fixedLayout"><div id="Header" class="fixedHeader"><div class="pageHeader level mb-0 py-2 px-4"><div id="TitleContainer" class="level-left"><div id="DocumentationTitle" class="level-item">A Sandcastle Documented Class Library</div></div><div id="LangFilterSearchContainer" class="level-right"><div class="level-item"><div class="dropdown is-hoverable"><div class="dropdown-trigger"><button class="button" aria-haspopup="true" aria-controls="dropdown-menu"><span id="CurrentLanguage"></span><span class="icon is-small"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button></div><div class="dropdown-menu" role="menu"><div id="LanguageSelections" class="dropdown-content"><a class="dropdown-item languageFilterItem" data-languageId="cs">C#</a></div></div></div></div><div class="level-item"><form id="SearchForm" action="#" onsubmit="TransferToSearchPage(); return false;"><div class="field"><div class="control has-icons-left"><input id="SearchTerms" class="input" type="text" maxlength="200" placeholder="Search" /><span class="icon is-small is-left"><i class="fa fa-search"></i></span><button id="SearchButton" type="submit" class="is-hidden"></button></div></div></form></div></div></div></div><div class="fixedContent"><nav class="breadcrumb my-1 px-2 border-bottom" role="navigation"><ul id="TopicBreadcrumbs" /></nav><div class="columns pl-5 pr-5 fixedContent"><div id="ShowHideTOCColumn" class="column is-hidden-tablet"><a id="ShowHideTOC">Show/Hide TOC</a></div><div id="TOCColumn" class="column is-hidden-mobile"><nav class="toc"><ul id="TableOfContents" class="toc-menu" /></nav></div><div id="TopicContent" class="column content is-7"><h1>Sorting Namespace</h1><div class="summary">
+            The namespace Sorting is the main namespace in this project.
+            It contains classes, interfaces and enumerations for the project.
+            There is also the namespace ConsoleTable inside this library, but it is used for internal purposes.
+            </div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Classes</h2><div id="IDACASection"><table id="classList" class="table is-hoverable"><tr><td><a href="cc4f32cf-b94e-1fe4-b431-0a21dd869536.htm">AdvancedArray<span id="LST8B372A8C_0" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_1" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The class AdvancedArrays&lt;T&gt; is designed  for:<br />
+            1) creating arrays in the range from 0 to 2_146_435_071. It supports
+            also assigment of max- and min- values in the array and how many
+            same numbers it contains;<br />
+            2) operations to double, reverse and shuffle array.<br />
+            It is a generic type class which implements IComparable interface.<br />
+            You should use sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char types for correct working.
+            </td></tr><tr><td><a href="e63eac55-97ac-0cec-42ca-7b8a792f7e55.htm">Algorithm</a></td><td>
+            The abstract class Algorithm is created to be a template
+            for any other sorting algorithms.
+            </td></tr><tr><td><a href="a7e3968e-309e-b0b7-13e3-320de115b3ff.htm">Algorithm<span id="LST8B372A8C_2" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_3" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The abstract class Algorithm is created to be a template
+            for any other sorting algorithms.
+            </td></tr><tr><td><a href="ff9849bd-ac69-30c3-1e63-b2ce93ce6721.htm">AlgorithmsInfo</a></td><td>
+            The class AlgorithmsInfo represents the way to add the algorithms information
+            to the class Printer while creating a report.
+            </td></tr><tr><td><a href="c51a2da1-ff66-8d98-60d6-569c89df7192.htm">ArraysInfo</a></td><td>
+            The class ArraysInfo is created to contain arrays information for printing.<br />
+            The class properties InputArray and OutputArray are dynamic types,<br />
+            but they should be digit or char arrays or AdvancedArray type.<br />
+            It does not matter whether the arrays are sorted or the same type.<br />
+            The class Printer will print them both if they match to the array or AdvancedArray type.
+            </td></tr><tr><td><a href="15277c0c-ef54-75a1-0b6b-c49734cc9235.htm">BogoSort<span id="LST8B372A8C_4" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_5" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The sorting algorithm is based on the generate and test paradigm.<br />
+            The function successively generates permutations of its input until it finds one that is sorted.<br />
+            It is not considered one of efficient algorithms for sorting.<br />
+            It is recommended to sort with this algorithm no more than 10 elements,
+            because of the very bad time complexity (in case of using a standart low-mid desktop-CPU).<br />
+            The amount of comparizons is zero, because the algorithm does not compare keys,
+            though there is a method for checking if the array is sorted.
+            </td></tr><tr><td><a href="d9e2285a-7f2b-1dcf-423c-23d1e3178b5b.htm">BubbleSort<span id="LST8B372A8C_6" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_7" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The bubble sort, sometimes referred to as sinking sort,
+            is a simple sorting algorithm that repeatedly steps through the input list element by element,
+            comparing the current element with the one after it, swapping their values if needed.<br />
+            These passes through the list are repeated until no swap had to be performed during a pass,
+            meaning that the list has become fully sorted.<br />
+            The algorithm, which is a comparison sort, is named for the way the larger elements "bubble" up to the top of the list.<br />
+            This simple algorithm performs poorly in real world use and is used primarily as an educational tool. 
+            </td></tr><tr><td><a href="89009d5a-169f-e19c-d02f-fd91e53926ab.htm">CocktailSort<span id="LST8B372A8C_8" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_9" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The cocktail shaker sort, also known as bidirectional bubble sort,
+            cocktail sort, shaker sort (which can also refer to a variant of selection sort),
+            ripple sort, shuffle sort, or shuttle sort, is an extension of bubble sort.<br />
+            The algorithm extends bubble sort by operating in two directions.<br />
+            While it improves on bubble sort by more quickly moving items to the beginning of the list,
+            it provides only marginal performance improvements.<br />
+            Like most variants of bubble sort, cocktail shaker sort is used primarily as an educational tool. 
+            </td></tr><tr><td><a href="97de0c4a-32c8-a212-1b00-a09687ece9bd.htm">CombSort<span id="LST8B372A8C_10" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_11" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The comb sort is mainly an improvement over the bubble sort.<br />
+            The bubble sort always compares adjacent values.
+            So all inversions are removed one by one.<br />
+            The comb sort improves on the bubble sort by using a gap of the size of more than 1.<br />
+            The gap starts with a large value and shrinks by a factor of 1.3 in every iteration until it reaches the value 1.<br />
+            Thus the comb sort removes more than one inversion count with one swap and performs better than Bubble Sort.
+            The shrink factor has been empirically found to be 1.3.<br />
+            Although it works better than Bubble Sort on average, worst-case remains O(n^2).
+            </td></tr><tr><td><a href="393d4c57-c947-657e-8e8b-7d7a0207b807.htm">GnomeSort<span id="LST8B372A8C_12" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_13" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The gnome sort is a variation of the insertion sort sorting algorithm that does not use nested loops.<br />
+            It was first called stupid sort (not to be confused with bogosort), and then later named gnome sort.<br />
+            The gnome sort performs at least as many comparisons as insertion sort and has the same asymptotic run time characteristics.<br />
+            The sort works by building a sorted list one element at a time, getting each item to the proper place in a series of swaps.
+            </td></tr><tr><td><a href="99b6cf35-4f09-42c3-cbbf-ff6c50e06aea.htm">HeapSort<span id="LST8B372A8C_14" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_15" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The heapsort can be thought of as an improved selection sort:
+            like selection sort, heapsort divides its input into a sorted and an unsorted region,
+            and it iteratively shrinks the unsorted region by extracting the largest element from it
+            and inserting it into the sorted region.<br />
+            Unlike selection sort,heapsort does not waste time with a linear-time scan of the unsorted region;
+            rather, heap sort maintains the unsorted region in a heap data structure to more quickly find the largest element in each step.<br />
+            Although somewhat slower in practice on most machines than a well-implemented quicksort,
+            it has the advantage of a more favorable worst-case O(n log n) runtime.<br />
+            Heapsort is an in-place algorithm, but it is not a stable sort.
+            </td></tr><tr><td><a href="5215e3eb-a889-6709-fb9b-c89586fc10d4.htm">InsertionSort<span id="LST8B372A8C_16" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_17" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The insertion sort iterates, consuming one input element each repetition, and grows a sorted output list.<br />
+            At each iteration, insertion sort removes one element from the input data,
+            finds the location it belongs within the sorted list, and inserts it there.<br />
+            It repeats until no input elements remain.<br />
+            Sorting is typically done in-place, by iterating up the array, growing the sorted list behind it.<br />
+            At each array-position, it checks the value there against the largest value in the sorted list
+            (which happens to be next to it, in the previous array-position checked).<br />
+            If larger, it leaves the element in place and moves to the next.<br />
+            If smaller, it finds the correct position within the sorted list, shifts all the larger values up to make a space,
+            and inserts into that correct position. 
+            </td></tr><tr><td><a href="69c816f7-2917-5b37-830c-869946f6bcba.htm">MergeSort<span id="LST8B372A8C_18" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_19" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The merge sort is an efficient, general-purpose, and comparison-based sorting algorithm.<br />
+            Most implementations produce a stable sort, which means that the order of equal elements is the same in the input and output.
+            Conceptually, a merge sort works as follows:<br />
+            1.Dividing the unsorted list into n sublists, each containing one element (a list of one element is considered sorted).<br />
+            2.Repeatedly merging sublists to produce new sorted sublists until there is only one sublist remaining.<br />
+            This is the sorted list.
+            </td></tr><tr><td><a href="acb08264-fa05-58a1-5c2f-26607f83b5ea.htm">Printer</a></td><td>
+            The class Printer represents capabilities for printing of
+            arrays and algorithms information to .txt- and .-xlsx files or
+            creating string report.<br />
+            The class does not check if the arrays are sorted by means of
+            the current sorting algorithms.<br />
+            The class works like a printer - without checking the correctness of algorithms,
+            arrays and so on. It prints the information to the .txt- or .xlsx-file.<br />
+            The classes ArraysInfo and AlgorithmsInfo form the basis of all reports.<br />
+            The txt-reports are creating by means of the class ConsoleTables:
+            https://github.com/khalidabuhakmeh/ConsoleTables<br />
+            The Microsoft Office Excel reports are creating with the help of the EPPlus library
+            (version 6.1.3 current as of 04/01/2023):
+            https://www.epplussoftware.com/
+            </td></tr><tr><td><a href="fe04d8d1-86b7-9b4c-c7f8-cdb4e79c5dd5.htm">QuickSort<span id="LST8B372A8C_20" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_21" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The quicksort is an efficient, general-purpose sorting algorithm.<br />
+            It was developed by British computer scientist Tony Hoare in 1959 and published in 1961.
+            It is still a commonly used algorithm for sorting.<br />
+            Overall, it is slightly faster than merge sort and heapsort for randomized data, particularly on larger distributions.<br />
+            This is a divide-and-conquer algorithm.
+            It works by selecting a 'pivot' element from the array
+            and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot.<br />
+            For this reason, it is sometimes called partition-exchange sort.<br />
+            The sub-arrays are then sorted recursively. This can be done in-place, requiring small additional amounts of memory to perform the sorting.
+            Most implementations of quicksort are not stable, meaning that the relative order of equal sort items is not preserved.<br />
+            This implementation is also not stabil.
+            </td></tr><tr><td><a href="54b62a62-dbfc-0308-6941-34eb247ef6cb.htm">SelectionSort<span id="LST8B372A8C_22" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_23" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The selection sort is an in-place comparison sorting algorithm.<br />
+            It has an O(n^2) time complexity, which makes it inefficient on large lists,
+            and generally performs worse than the similar insertion sort.
+            It is noted for its simplicity and has performance advantages over more complicated algorithms in certain situations,
+            particularly where auxiliary memory is limited.<br />
+            The algorithm divides the input list into two parts:
+            a sorted sublist of items which is built up from left to right at the front (left) of the list
+            and a sublist of the remaining unsorted items that occupy the rest of the list.<br />
+            Initially, the sorted sublist is empty and the unsorted sublist is the entire input list.<br />
+            The algorithm proceeds by finding the smallest (or largest, depending on sorting order) element in the unsorted sublist,
+            exchanging (swapping) it with the leftmost unsorted element (putting it in sorted order),
+            and moving the sublist boundaries one element to the right.
+            </td></tr><tr><td><a href="2abb15e4-76ee-33fa-3c46-20c5b1aca2a4.htm">ShellSort<span id="LST8B372A8C_24" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_25" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The shellsort, also known as Shell sort or Shell's method, is an in-place comparison sort.<br />
+            It can be seen as either a generalization of sorting by exchange (bubble sort) or sorting by insertion (insertion sort).<br />
+            The method starts by sorting pairs of elements far apart from each other,
+            then progressively reducing the gap between elements to be compared.<br />
+            By starting with far apart elements, it can move some out-of-place elements into position faster than a simple nearest neighbor exchange.<br />
+            The running time of Shellsort is heavily dependent on the gap sequence it uses.
+            For many practical variants, determining their time complexity remains an open problem. 
+            </td></tr><tr><td><a href="303f4468-477d-a6df-4b48-efe13a45f7f1.htm">StoogeSort<span id="LST8B372A8C_26" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_27" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            The stooge sort is a recursive sorting algorithm.<br />
+            It is notable for its exceptionally bad time complexity of O(nlog 3 / log 1.5 ) = O(n2.7095...).<br />
+            The running time of the algorithm is thus slower compared to reasonable sorting algorithms,
+            and is slower than bubble sort, a canonical example of a fairly inefficient sort.
+            It is however more efficient than the slow sort.<br />
+            The algorithm is defined as follows:<br />
+            If the value at the start is larger than the value at the end, swap them.<br />
+            If there are 3 or more elements in the list, then:<br />
+            1.Stooge sort the initial 2/3 of the list;<br />
+            2.Stooge sort the final 2/3 of the list;<br />
+            3.Stooge sort the initial 2/3 of the list again.<br />
+            It is important to get the integer sort size used in the recursive calls by rounding the 2/3 upwards,
+            e.g. rounding 2/3 of 5 should give 4 rather than 3, as otherwise the sort can fail on certain data. 
+            </td></tr><tr><td><a href="230ef96e-6555-c973-5f8d-7bf5b8eb6693.htm">TreeSort<span id="LST8B372A8C_28" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8B372A8C_29" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            Tree sort is a sorting technique that is totally dependent on the data structure of a binary search tree.<br />
+            In this sorting technique first, the binary search tree is created from the given data.<br />
+            A binary search tree is a special type of binary tree in which,
+            for each parent node, the left child will be lesser or smaller than the parent node
+            and the right child will be equal or greater than the parent node.<br />
+            In the case of a binary search tree, the inorder traversal always displays the elements in sorted order.
+            Hence, this property is used in this sorting.<br />
+            After creating the binary search tree, only the inorder traversal is performed to display the array in sorted order.
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Interfaces</h2><div id="IDNCASection"><table id="interfaceList" class="table is-hoverable"><tr><td><a href="f75d1608-7bf4-b3fc-fae7-40552b15c245.htm">IPrintableArraysInfo</a></td><td>
+            The interface IPrintableArraysInfo defines required for the class Printer properties,
+            which contain information about input and output arrays.
+            </td></tr><tr><td><a href="d45bde6d-7476-f9b1-d955-f9e93b0526e8.htm">ISortable</a></td><td>
+            The interface ISortable defines some requires
+            to the classes, which contain methods to sort an array.
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Enumerations</h2><div id="IDFCASection"><table id="enumerationList" class="table is-hoverable"><tr><td><a href="43606f56-6eea-6da2-ed21-e4d3539d5525.htm">ArrayType</a></td><td>
+            The enumeration ArrayType represents
+            types of the array.<br />
+            In practice it may be hard to define which type the array is.<br />
+            The randomized array has a chance to be sorted or reversed.
+            Although the expectation will be very small in this case.
+            The algorithm for the creating an array with the defined type will do the best
+            to create an array which will be match the type.
+            </td></tr><tr><td><a href="74bb3b04-c60a-5312-1c15-ada043ab1e47.htm">ReportType</a></td><td>
+            The enumeration ReportType contains types of the report.<br />
+            The class Printer allows to create different types of the reports.
+            In order to choose the require type there is this enumeration.<br />
+            The printing of the large array may take a while because oftentimes
+            it is quicker to sort the whole array than  that is why
+            it can be more rationally not to print the arrays.
+            </td></tr><tr><td><a href="c2c85b81-999b-2956-381e-2077d39f006b.htm">SortingAlgorithm</a></td><td>
+            The enumeration SortingAlgorithm contains names of sorting algorithms.
+            </td></tr><tr><td><a href="3570abf2-6002-61e4-0a9d-83b6f2db3c09.htm">SortingType</a></td><td>
+            The enumeration SortingType contains two sorting types:<br />
+            1.Ascending sorting - upwards;<br />
+            2.Descending sorting - downwards.
+            </td></tr></table></div></div><div id="InThisArticleColumn" class="column is-hidden-mobile"><nav class="menu sticky is-hidden"><p class="menu-label"><strong>In This Article</strong></p><ul id="InThisArticleMenu" class="menu-list"><li><a class="quickLink">Classes</a></li><li><a class="quickLink">Interfaces</a></li><li><a class="quickLink">Enumerations</a></li></ul></nav></div></div></div><footer id="PageFooter" class="footer border-top py-3 fixedFooter"><div class="columns"><div class="column"> 
+				</div><div class="column"> 
+				</div></div></footer></div><script>$(function(){
+SetDefaultLanguage("cs");
+LoadTocFile(null, null);
+InitializeQuickLinks();
+
+$(".toggleSection" ).click(function () {
+    SectionExpandCollapse(this);
+});
+
+$(".toggleSection").keypress(function () {
+    SectionExpandCollapseCheckKey(this, event)
+});
+});</script></body></html>

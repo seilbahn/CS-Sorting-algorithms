@@ -12,8 +12,11 @@ namespace Sorting
     /// </summary>
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>
-    public class MergeSort<T> : Algorithm<T>, ISortable<T> where T : IComparable
+    public class MergeSort<T> : Algorithm<T> where T : IComparable
     {
+        /// <summary>
+        /// Initializes a new instance of the MergeSort class.
+        /// </summary>
         public MergeSort()
         {
             Name = SortingAlgorithm.MergeSort;
@@ -25,6 +28,7 @@ namespace Sorting
             WorstCaseSpaceComplexity = "O(n)";
         }
 
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         public override T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending)
         {
             T[] output = new T[input.Length];
@@ -34,7 +38,7 @@ namespace Sorting
             Time = new Stopwatch();
 
             Time.Start();
-            ToSort(output, 0, output.Length - 1, sortingType);
+            StartSort(output, 0, output.Length - 1, sortingType);
             Time.Stop();
             return output;
         }
@@ -84,13 +88,13 @@ namespace Sorting
             }
         }
 
-        private void ToSort(T[] array, int lowIndex, int highIndex, SortingType sortingType)
+        private void StartSort(T[] array, int lowIndex, int highIndex, SortingType sortingType)
         {
             if (lowIndex < highIndex)
             {
                 int middleIndex = (lowIndex + highIndex) / 2;
-                ToSort(array, lowIndex, middleIndex, sortingType);
-                ToSort(array, middleIndex + 1, highIndex, sortingType);
+                StartSort(array, lowIndex, middleIndex, sortingType);
+                StartSort(array, middleIndex + 1, highIndex, sortingType);
                 Merge(array, lowIndex, middleIndex, highIndex, sortingType);
             }
         }

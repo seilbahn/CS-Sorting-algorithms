@@ -189,6 +189,9 @@
   <data name="New" xml:space="preserve">
     <value>New</value>
   </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
   <data name="OutputArray" xml:space="preserve">
     <value>Output array</value>
   </data>

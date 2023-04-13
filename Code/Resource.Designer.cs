@@ -277,6 +277,15 @@ namespace Sorting {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Other.
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Output array.
         /// </summary>
         public static string OutputArray {

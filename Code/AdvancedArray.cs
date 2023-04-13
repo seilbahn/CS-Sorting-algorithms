@@ -16,7 +16,7 @@ namespace Sorting
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>    
     [Serializable]
-    public class AdvancedArray<T> : ICloneable, IChangable<T> where T : IComparable
+    public class AdvancedArray<T> : ICloneable where T : IComparable
     {
         /// <summary>
         /// 2_146_435_071 is the maximum size for arrays of any structure.<br/>
@@ -27,14 +27,14 @@ namespace Sorting
         /// This class is created for the array capacity within System.Int32.<br/>
         /// If you need bigger arrays you should use BigArray&lt;T&gt;.
         /// </summary>
-        public static readonly int MAXIMUM_INDEX = 2_146_435_071;
+        public static readonly int MaximumIndex = 2_146_435_071;
 
         /// <summary>
         /// The default array size.<br/>
         /// This value is used to create an instance of the class without parameters.<br/>
         /// It is equal: 10.
         /// </summary>
-        private static readonly int DEFAULT_SIZE = 10;
+        private static readonly int s_defaultSize = 10;
 
         /// <summary>
         /// The type of the array.
@@ -59,7 +59,7 @@ namespace Sorting
         /// The minimum and maximum values are equal to the min- and maximum values of generic type &lt;T&gt;.
         /// </summary>
         /// <returns>A new object of AdvancedArray class.</returns>
-        public AdvancedArray() : this(DEFAULT_SIZE, MinValueOf(typeof(T)), MaxValueOf(typeof(T)), 0.0M, ArrayType.Random)
+        public AdvancedArray() : this(s_defaultSize, MinValueOf(typeof(T)), MaxValueOf(typeof(T)), 0.0M, ArrayType.Random)
         {
         }
 
@@ -67,43 +67,54 @@ namespace Sorting
         /// It initializes a new instance of the AdvancedArray class.<br/>
         /// The minimum and maximum values are equal to the min- and maximum values of generic type &lt;T&gt;.
         /// </summary>
-        /// <param name="SizeOfArray"> The size of generating array.
+        /// <param name="sizeOfArray"> The size of generating array.
         /// It should be within the range [1 ; 2_146_435_071].<br/>
         /// DON'T use int.MaxValue or System.Int32.MaxValue.<br/>
         /// There is a readonly value MAXIMUM_INDEX = 2_146_435_071 for this case.</param>
         /// <returns>A new object of AdvancedArray class.</returns>
-        public AdvancedArray(int SizeOfArray) : this(SizeOfArray, MinValueOf(typeof(T)), MaxValueOf(typeof(T)), 0.0M, ArrayType.Random)
+        public AdvancedArray(int sizeOfArray) : this(sizeOfArray, MinValueOf(typeof(T)), MaxValueOf(typeof(T)), 0.0M, ArrayType.Random)
         {
         }
 
         /// <summary>
         /// It initializes a new instance of the AdvancedArray class.<br/>
         /// </summary>
-        /// <param name="SizeOfArray"> The size of generating array.
+        /// <param name="sizeOfArray"> The size of generating array.
         /// It should be within the range [1 ; 2_146_435_071].<br/>
         /// DON'T use int.MaxValue or System.Int32.MaxValue.<br/>
         /// There is a readonly value MAXIMUM_INDEX = 2_146_435_071 for
         /// this case.</param>
-        /// <param name="MinimumValue">Minimum value of the array elements.<br/>
+        /// <param name="minimumValue">Minimum value of the array elements.<br/>
         /// It should be within the range [type.MinValue ; type.MaxValue].</param>
-        /// <param name="MaximumValue">Maximum value of the array elements.<br/>
+        /// <param name="maximumValue">Maximum value of the array elements.<br/>
         /// It should be within the range (Minimum Value ; type.MaxValue].</param>
-        /// <param name="SimilarElementsExpectancy">This parameter is used for
+        /// <param name="SimilarElementsExpectancy">This parameter is created for
         /// assigning the probability of occurrence for one value in the whole array.<br/>
         /// It should be within the range [0.1 ; 1.0].<br/>
         /// 0.1 means that 10 % of the array will be filled with the same value
         /// (How many elements will be the same).</param>
-        public AdvancedArray(int SizeOfArray, T MinimumValue, T MaximumValue, decimal SimilarElementsExpectancy = default, ArrayType arrayType = ArrayType.Random)
+        /// <param name="type">This parameter defines which type the array should be.<br/>
+        /// Without this parameter the array will be random type.<br/>
+        /// ArrayType.Random - the default random generated array.<br/>
+        /// ArrayType.Sorted - the array will be sorted ascending.<br/>
+        /// ArrayType.NearlySorted - the array will contain unsorted elements, but
+        /// mostly it will be sorted ascending.<br/>
+        /// ArrayType.Reversed - the array will be sorted descending.<br/>
+        /// ArrayType.FewUnique - the array will contain a very limited set of values.</param>
+        public AdvancedArray(int sizeOfArray, T minimumValue, T maximumValue, decimal SimilarElementsExpectancy = default, ArrayType type = ArrayType.Random)
         {
-            TArray = new T[SizeOfArray];
-            TArray = CreateArray(SizeOfArray, MinimumValue, MaximumValue, SimilarElementsExpectancy, arrayType);
-            ArrayType = arrayType;
+            TArray = new T[sizeOfArray];
+            TArray = CreateArray(sizeOfArray, minimumValue, maximumValue, SimilarElementsExpectancy, type);
+            ArrayType = type;
         }
 
         /// <summary>
         /// The indexer for the internal array.
         /// </summary>
-        /// <value>It returns the value at the position of the internal array.</value>
+        /// <param name="index">The index of the key.</param>
+        /// <returns>The value at the index position.</returns>
+        /// <exception cref="IndexOutOfRangeException">If the index
+        /// is out of array borders, the IndexOutOfRangeException will be thrown.</exception>
         public T this[int index]
         {
             get
@@ -143,7 +154,7 @@ namespace Sorting
         {
             get
             {
-                return IsSorted(TArray);
+                return AdvancedArray<T>.IsSorted(TArray);
             }
         }
 
@@ -164,7 +175,7 @@ namespace Sorting
             }
             if ((i & 1) > 0)
             {
-                if (Compare(input[i], input[i - 1]) < 0)
+                if (AdvancedArray<T>.Compare(input[i], input[i - 1]) < 0)
                 {
                     isSorted = false;
                     return isSorted;
@@ -173,20 +184,27 @@ namespace Sorting
             }
             for (T ai = input[i]; i > 0; i -= 2)
             {
-                if (Compare(ai, ai = input[i - 1]) < 0 || Compare(ai, ai = input[i - 2]) < 0)
+                if (AdvancedArray<T>.Compare(ai, ai = input[i - 1]) < 0
+                    || AdvancedArray<T>.Compare(ai, ai = input[i - 2]) < 0)
                 {
                     isSorted = false;
                     return isSorted;
                 }
             }
-            isSorted = (Compare(input[0], input[1]) <= 0);
+            isSorted = (AdvancedArray<T>.Compare(input[0], input[1]) <= 0);
             return isSorted;
         }
 
+        /// <summary>
+        /// The method makes a copy of the object.
+        /// </summary>
+        /// <returns>The reference to the copy of the primary object.</returns>
+        /// <exception cref="NullReferenceException">If the primary object is null,
+        /// there will be the null reference exception.</exception>
         public object Clone()
         {
-            using var stream = new MemoryStream();
-            var serializer = new XmlSerializer(typeof(AdvancedArray<T>));
+            using MemoryStream stream = new MemoryStream();
+            XmlSerializer serializer = new XmlSerializer(typeof(AdvancedArray<T>));
             serializer.Serialize(stream, this);
             stream.Position = 0;
             object? obj = serializer.Deserialize(stream);
@@ -204,16 +222,16 @@ namespace Sorting
         /// This method generates an array with assigned parameters.<br/>
         /// The type of the returned array is the same as generic type.
         /// </summary>
-        /// <param name="SizeOfArray"> The size of generating array.<br/>
+        /// <param name="sizeOfArray"> The size of generating array.<br/>
         /// It should be within the range [1 ; 2_146_435_071].<br/>
         /// DON'T use int.MaxValue or System.Int32.MaxValue.
         /// There is a readonly value MAXIMUM_INDEX = 2_146_435_071 for
         /// this case.</param>
-        /// <param name="MinimumValue">Minimum value of the array elements.<br/>
+        /// <param name="minimumValue">Minimum value of the array elements.<br/>
         /// It should be within the range [type.MinValue ; type.MaxValue].</param>
-        /// <param name="MaximumValue">Maximum value of the array elements.<br/>
+        /// <param name="maximumValue">Maximum value of the array elements.<br/>
         /// It should be within the range (Minimum Value ; type.MaxValue].</param>
-        /// <param name="SimilarElementsExpectancy">This parameter is used for
+        /// <param name="similarElementsExpectancy">This parameter is used for
         /// assigning the probability of occurrence for one value in the whole array.<br/>
         /// It should be within the range [0.1 ; 1.0].<br/>
         /// 0.1 means that 10 % of the array will be filled with the same value
@@ -227,43 +245,43 @@ namespace Sorting
         /// ArrayType.Reversed - the array will be sorted descending.<br/>
         /// ArrayType.FewUnique - the array will contain a very limited set of values.</param>
         /// <returns>The generated array with the type of generic.</returns>
-        public static T[] CreateArray(int SizeOfArray, T MinimumValue, T MaximumValue, decimal SimilarElementsExpectancy = default, ArrayType arrayType = ArrayType.Random)
+        public static T[] CreateArray(int sizeOfArray, T minimumValue, T maximumValue, decimal similarElementsExpectancy = default, ArrayType arrayType = ArrayType.Random)
         {
-            T[] output = new T[SizeOfArray];
+            T[] output = new T[sizeOfArray];
             Random random = new Random();
 
-            dynamic MinValue = MinimumValue;
-            dynamic MaxValue = MaximumValue;
+            dynamic _minimumValue = minimumValue;
+            dynamic _maximumValue = maximumValue;
 
-            if (!IsArgumentsValid(SizeOfArray, MinValue, MaxValue, SimilarElementsExpectancy))
+            if (! AdvancedArray<T>.IsArgumentsValid(sizeOfArray, _minimumValue, _maximumValue))
             {
                 throw new ArgumentException();
             }
 
             if (
-                (typeof(T).Equals(typeof(System.SByte))) ||
-                (typeof(T).Equals(typeof(System.Byte))) ||
-                (typeof(T).Equals(typeof(System.Int16))) ||
-                (typeof(T).Equals(typeof(System.UInt16))) ||
-                (typeof(T).Equals(typeof(System.Int32))) ||
-                (typeof(T).Equals(typeof(System.UInt32))) ||
-                (typeof(T).Equals(typeof(System.Int64))) ||
-                (typeof(T).Equals(typeof(System.UInt64)))
+                typeof(T).Equals(typeof(sbyte)) ||
+                typeof(T).Equals(typeof(byte)) ||
+                typeof(T).Equals(typeof(short)) ||
+                typeof(T).Equals(typeof(ushort)) ||
+                typeof(T).Equals(typeof(int)) ||
+                typeof(T).Equals(typeof(uint)) ||
+                typeof(T).Equals(typeof(long)) ||
+                typeof(T).Equals(typeof(ulong))
                 )
             {
-                for (int i = 0; i < SizeOfArray; i++)
+                for (int i = 0; i < sizeOfArray; i++)
                 {
-                    dynamic temp = random.NextInt64(Convert.ToInt64(MinValue), Convert.ToInt64(MaxValue + 1));
+                    dynamic temp = random.NextInt64(Convert.ToInt64(_minimumValue), Convert.ToInt64(_maximumValue + 1));
                     output[i] = (T)Convert.ChangeType(temp, typeof(T));
                 }
             }
-            else if (typeof(T).Equals(typeof(System.Single)))
+            else if (typeof(T).Equals(typeof(float)))
             {
-                for (int i = 0; i < SizeOfArray; i++)
+                for (int i = 0; i < sizeOfArray; i++)
                 {
-                    dynamic temp = 0;
-                    float tempFloat = random.NextSingle() * (MaxValue - MinValue) + MinValue;
-                    if (MinValue < 0)
+                    float temp = 0;
+                    float tempFloat = random.NextSingle() * (_maximumValue - _minimumValue) + _minimumValue;
+                    if (_minimumValue < 0)
                     {
                         tempFloat = (random.NextSingle() > 0.5) ? tempFloat * (-1) : tempFloat;
                     }
@@ -271,13 +289,13 @@ namespace Sorting
                     output[i] = (T)Convert.ChangeType(temp, typeof(T));
                 }
             }
-            else if (typeof(T).Equals(typeof(System.Double)))
+            else if (typeof(T).Equals(typeof(double)))
             {
-                for (int i = 0; i < SizeOfArray; i++)
+                for (int i = 0; i < sizeOfArray; i++)
                 {
-                    dynamic temp = 0;
-                    double tempDouble = random.NextSingle() * (MaxValue - MinValue) + MinValue;
-                    if (MinValue < 0)
+                    double temp = 0;
+                    double tempDouble = random.NextSingle() * (_maximumValue - _minimumValue) + _minimumValue;
+                    if (_minimumValue < 0)
                     {
                         tempDouble = (random.NextDouble() > 0.5) ? tempDouble * (-1) : tempDouble;
                     }
@@ -285,45 +303,44 @@ namespace Sorting
                     output[i] = (T)Convert.ChangeType(temp, typeof(T));
                 }
             }
-            else if (typeof(T).Equals(typeof(System.Decimal)))
+            else if (typeof(T).Equals(typeof(decimal)))
             {
-                for (int i = 0; i < SizeOfArray; i++)
+                for (int i = 0; i < sizeOfArray; i++)
                 {
-                    dynamic temp = random.NextDecimal((decimal)MinValue, (decimal)MaxValue);
+                    decimal temp = random.NextDecimal((decimal)_minimumValue, (decimal)_maximumValue);
                     output[i] = (T)Convert.ChangeType(temp, typeof(T));
                 }
             }
-            else if (typeof(T).Equals(typeof(System.Char)))
+            else if (typeof(T).Equals(typeof(char)))
             {
-                for (int i = 0; i < SizeOfArray; i++)
+                for (int i = 0; i < sizeOfArray; i++)
                 {
-                    dynamic temp = (char)random.Next(MinValue, MaxValue + 1);
+                    char temp = (char)random.Next(_minimumValue, _maximumValue + 1);
                     output[i] = (T)Convert.ChangeType(temp, typeof(T));
                 }
             }
 
-            if (SimilarElementsExpectancy != default)
+            if (similarElementsExpectancy != default)
             {
-                SimilarArrayElements(output, SimilarElementsExpectancy);
+                AdvancedArray<T>.SimilarArrayElements(output, similarElementsExpectancy);
             }
 
             if (arrayType.Equals(ArrayType.Random))
             {
                 return output;
             }
-
-            if (arrayType.Equals(ArrayType.Sorted))
+            else if (arrayType.Equals(ArrayType.Sorted))
             {
                 Array.Sort(output);
+                return output;
             }
-
-            if (arrayType.Equals(ArrayType.NearlySorted))
+            else if (arrayType.Equals(ArrayType.NearlySorted))
             {
                 Array.Sort(output);
-                for (int i = 0; i < (int)(Math.Sqrt(SizeOfArray)); i++)
+                for (int i = 0; i < (int)Math.Sqrt(sizeOfArray); i++)
                 {
-                    int firstElement = random.Next(0, SizeOfArray / 2);
-                    int secondElement = random.Next(SizeOfArray / 2 + 1, SizeOfArray);
+                    int firstElement = random.Next(0, sizeOfArray / 2);
+                    int secondElement = random.Next(sizeOfArray / 2 + 1, sizeOfArray);
                     if (!output[firstElement].Equals(output[secondElement]))
                     {
                         T temp = output[firstElement];
@@ -332,25 +349,24 @@ namespace Sorting
                     }
                 }
             }
-
-            if (arrayType.Equals(ArrayType.Reversed))
+            else if (arrayType.Equals(ArrayType.Reversed))
             {
                 //output = output.OrderByDescending(c => c).ToArray();
                 Array.Sort(output);
                 Array.Reverse(output);
+                return output;
             }
-
-            if (arrayType.Equals(ArrayType.FewUnique))
+            else if (arrayType.Equals(ArrayType.FewUnique))
             {
-                if (SizeOfArray <= 2)
+                if (sizeOfArray <= 2)
                 {
                     return output;
                 }
 
-                int counter = (int)Math.Ceiling(Math.Sqrt(SizeOfArray));
+                int counter = (int)Math.Ceiling(Math.Sqrt(sizeOfArray));
                 List<T> values = new List<T>();
 
-                for (int i = 0; i < SizeOfArray && values.Count < counter; i++)
+                for (int i = 0; i < sizeOfArray && values.Count < counter; i++)
                 {
                     if (!values.Contains(output[i]))
                     {
@@ -358,10 +374,11 @@ namespace Sorting
                     }
                 }
 
-                for (int i = 0; i < SizeOfArray; i++)
+                for (int i = 0; i < sizeOfArray; i++)
                 {
                     output[i] = values.Aggregate((x, y) => Math.Abs(Convert.ToDecimal(Subtract(x, output[i]))) < Math.Abs(Convert.ToDecimal(Subtract(y, output[i]))) ? x : y);
                 }
+                return output;
             }
 
             return output;
@@ -371,11 +388,11 @@ namespace Sorting
         /// This method generates an array with assigned parameters.<br/>
         /// The type of the returned array is the same as generic type.
         /// </summary>
-        /// <param name="MinimumValue">Minimum value of the array elements.<br/>
+        /// <param name="minimumValue">Minimum value of the array elements.<br/>
         /// It should be within the range [type.MinValue ; type.MaxValue].</param>
-        /// <param name="MaximumValue">Maximum value of the array elements.<br/>
+        /// <param name="maximumValue">Maximum value of the array elements.<br/>
         /// It should be within the range (Minimum Value ; type.MaxValue].</param>
-        /// <param name="SimilarElementsExpectancy">This parameter is used for
+        /// <param name="similarElementsExpectancy">This parameter is used for
         /// assigning the probability of occurrence for one value in the whole array.<br/>
         /// It should be within the range [0.1 ; 1.0].<br/>
         /// 0.1 means that 10 % of the array will be filled with the same value
@@ -388,9 +405,9 @@ namespace Sorting
         /// mostly it will be sorted ascending.<br/>
         /// ArrayType.Reversed - the array will be sorted descending.<br/>
         /// ArrayType.FewUnique - the array will contain a very limited set of values.</param>
-        public void CreateArray(T MinimumValue, T MaximumValue, decimal SimilarElementsExpectancy = default, ArrayType arrayType = ArrayType.Random)
+        public void CreateArray(T minimumValue, T maximumValue, decimal similarElementsExpectancy = default, ArrayType arrayType = ArrayType.Random)
         {
-            TArray = CreateArray(Size, MinimumValue, MaximumValue, SimilarElementsExpectancy, arrayType);
+            TArray = AdvancedArray<T>.CreateArray(Size, minimumValue, maximumValue, similarElementsExpectancy, arrayType);
             ArrayType = arrayType;
         }
 
@@ -404,12 +421,12 @@ namespace Sorting
         /// <returns>The duplicated array.</returns>
         public static T[] DoubleArray(T[] input)
         {
-            int newLength;
+            int newLength = default;
             T[] newArray;
             try
             {
                 newLength = input.Length * 2;
-                if (newLength > MAXIMUM_INDEX)
+                if (newLength > MaximumIndex)
                 {
                     throw new OverflowException();
                 }
@@ -432,7 +449,7 @@ namespace Sorting
         /// </summary>
         public void DoubleArray()
         {
-            TArray = DoubleArray(TArray);
+            TArray = AdvancedArray<T>.DoubleArray(TArray);
         }
 
         /// <summary>
@@ -449,7 +466,7 @@ namespace Sorting
         /// </summary>
         public void ReverseArray()
         {
-            ReverseArray(TArray);
+            AdvancedArray<T>.ReverseArray(TArray);
         }
 
         /// <summary>
@@ -468,7 +485,7 @@ namespace Sorting
         /// </summary>
         public void ShuffleArray()
         {
-            ShuffleArray(TArray);
+            AdvancedArray<T>.ShuffleArray(TArray);
         }
 
         /// <summary>
@@ -481,29 +498,29 @@ namespace Sorting
         /// (How many elements will be the same).
         /// </summary>
         /// <param name="input">The array for similaring elements.</param>
-        /// <param name="SimilarElementsExpectancy">This parameter is used for
+        /// <param name="similarElementsExpectancy">This parameter is used for
         /// assigning the probability of occurrence for one value in the whole array.<br/>
         /// It should be within the range [0.1 ; 1.0].<br/>
         /// 0.1 means that 10 % of the array will be filled with the same value
         /// (How many elements will be the same).</param>
-        public static void SimilarArrayElements(T[] input, decimal SimilarElementsExpectancy = 0.5M)
+        public static void SimilarArrayElements(T[] input, decimal similarElementsExpectancy = 0.5M)
         {
             Random random = new Random();
 
-            if (SimilarElementsExpectancy < 0.1M)
+            if (similarElementsExpectancy < 0.1M)
             {
-                throw new ArgumentException($"The value of {nameof(SimilarElementsExpectancy)} is less than {0.1M}."
+                throw new ArgumentException($"The value of {nameof(similarElementsExpectancy)} is less than {0.1M}."
                     + $"It should be within the range [{0.1M}, {1.0M}]");
             }
-            if (SimilarElementsExpectancy > 1.0M)
+            if (similarElementsExpectancy > 1.0M)
             {
-                throw new ArgumentException($"The value of {nameof(SimilarElementsExpectancy)} is bigger than {1.0M}."
+                throw new ArgumentException($"The value of {nameof(similarElementsExpectancy)} is bigger than {1.0M}."
                     + $"It should be within the range [{0.1M}, {1.0M}]");
             }
 
-            dynamic elementForCopy = input[random.Next(input.Length)];
-            int howManyElementsToCopy = Convert.ToInt32(input.Length * SimilarElementsExpectancy);
-            int stepToCopy = Convert.ToInt32(Math.Floor(1 / SimilarElementsExpectancy));
+            T elementForCopy = input[random.Next(input.Length)];
+            int howManyElementsToCopy = Convert.ToInt32(input.Length * similarElementsExpectancy);
+            int stepToCopy = Convert.ToInt32(Math.Floor(1 / similarElementsExpectancy));
             int howManyElementIsThere = default;
 
             for (int i = 0; i < input.Length; i++)
@@ -546,14 +563,14 @@ namespace Sorting
         /// 0.1 means that 10 % of the array will be filled with the same value
         /// (How many elements will be the same).
         /// </summary>
-        /// <param name="SimilarElementsExpectancy">This parameter is used for
+        /// <param name="similarElementsExpectancy">This parameter is used for
         /// assigning the probability of occurrence for one value in the whole array.<br/>
         /// It should be within the range [0.1 ; 1.0].<br/>
         /// 0.1 means that 10 % of the array will be filled with the same value
         /// (How many elements will be the same).</param>
-        public void SimilarArrayElements(decimal SimilarElementsExpectancy = 0.5M)
+        public void SimilarArrayElements(decimal similarElementsExpectancy = 0.5M)
         {
-            SimilarArrayElements(TArray, SimilarElementsExpectancy);
+            AdvancedArray<T>.SimilarArrayElements(TArray, similarElementsExpectancy);
         }
 
         /// <summary>
@@ -562,7 +579,7 @@ namespace Sorting
         /// <param name="input">The array for printing.</param>
         public static void PrintToConsole(T[] input)
         {
-            Console.WriteLine(ToString(input));
+            Console.WriteLine(AdvancedArray<T>.ToString(input));
         }
 
         /// <summary>
@@ -570,7 +587,7 @@ namespace Sorting
         /// </summary>
         public void PrintToConsole()
         {
-            PrintToConsole(TArray);
+            AdvancedArray<T>.PrintToConsole(TArray);
         }
 
         /// <summary>
@@ -594,7 +611,7 @@ namespace Sorting
         /// <returns>A string value of the internal array.</returns>
         public override string ToString()
         {
-            return ToString(TArray);
+            return AdvancedArray<T>.ToString(TArray);
         }
 
         /// <summary>
@@ -615,7 +632,7 @@ namespace Sorting
         /// <returns>The reference to the new array.</returns>
         public T[] Copy()
         {
-            return Copy(TArray);
+            return AdvancedArray<T>.Copy(TArray);
         }
 
         /// <summary>
@@ -626,7 +643,7 @@ namespace Sorting
         /// <returns>The reference to the new created sorted array.</returns>
         public static T[] Sort(T[] input)
         {
-            T[] output = Copy(input);
+            T[] output = AdvancedArray<T>.Copy(input);
             Array.Sort(output);
             return output;
         }
@@ -636,7 +653,7 @@ namespace Sorting
         /// </summary>
         public void Sort()
         {
-            TArray = Sort(TArray);
+            TArray = AdvancedArray<T>.Sort(TArray);
         }
 
         /// <summary>
@@ -649,7 +666,7 @@ namespace Sorting
         private static void ThrowOverflowException()
         {
             throw new OverflowException($"The boundary values were either too large or too small for {typeof(T)}."
-                + $"The \'MinValue\' and \'MaxValue\' should be within the range: [{MinValueOf(typeof(T))} ; {MaxValueOf(typeof(T))}].");
+                + $"The \'MinValue\' and \'MaxValue\' should be within the range: [{AdvancedArray<T>.MinValueOf(typeof(T))} ; {AdvancedArray<T>.MaxValueOf(typeof(T))}].");
         }
 
         /// <summary>
@@ -658,49 +675,45 @@ namespace Sorting
         /// If at least one of them is not valid,
         /// then ArgumentException will be thhrown.
         /// </summary>
-        /// <param name="SizeOfArray"> The size of generating array.<br/>
+        /// <param name="sizeOfArray"> The size of generating array.<br/>
         /// It should be within the range [1 ; 2_146_435_071].<br/>
         /// DON'T use int.MaxValue or System.Int32.MaxValue.
         /// There is a readonly value MAXIMUM_INDEX = 2_146_435_071 for
         /// this case.</param>
-        /// <param name="MinValue">Minimum value of the array elements.<br/>
+        /// <param name="minValue">Minimum value of the array elements.<br/>
         /// It should be within the range [type.MinValue ; type.MaxValue].</param>
-        /// <param name="MaxValue">Maximum value of the array elements.<br/>
+        /// <param name="maxValue">Maximum value of the array elements.<br/>
         /// It should be within the range (Minimum Value ; type.MaxValue].</param>
-        /// <param name="SimilarElementsExpectancy">This parameter is used for
-        /// assigning the probability of occurrence for one value in the whole array.
-        /// It should be within the range [0.1 ; 1.0].
-        /// 0.1 means that 10 % of the array will be filled with the same value
-        /// (How many elements will be the same).</param>
         /// <returns>True, if all parameters are valid.
         /// Otherwise throws an argument exception.</returns>
         /// <exception cref="ArgumentException"></exception>
-        private static bool IsArgumentsValid(int SizeOfArray, T MinValue, T MaxValue, decimal SimilarElementsExpectancy)
+        private static bool IsArgumentsValid(int sizeOfArray, T minValue, T maxValue)
         {
             bool isValid = false;
-            if (SizeOfArray <= 0)
+            if (sizeOfArray <= 0)
             {
-                throw new ArgumentException($"The value of {nameof(SizeOfArray)} is less or equal 0. It should be more than 0."
-                    + $"The value of {nameof(SizeOfArray)} can be within the range [0 ; {MAXIMUM_INDEX}].");
+                throw new ArgumentException($"The value of {nameof(sizeOfArray)} is less or equal 0. It should be more than 0."
+                    + $"The value of {nameof(sizeOfArray)} can be within the range [0 ; {MaximumIndex}].");
             }
-            else if (SizeOfArray > MAXIMUM_INDEX)
+            else if (sizeOfArray > MaximumIndex)
             {
-                throw new ArgumentException($"The value of {nameof(SizeOfArray)} is more than {MAXIMUM_INDEX}."
-                    + $"The value of {nameof(SizeOfArray)} can be within the range [0 ; {MAXIMUM_INDEX}].");
+                throw new ArgumentException($"The value of {nameof(sizeOfArray)} is more than {MaximumIndex}."
+                    + $"The value of {nameof(sizeOfArray)} can be within the range [0 ; {MaximumIndex}].");
             }
-            else if (AdvancedArray<T>.Compare(MinValue, MaxValue) == 0)
+            else if (AdvancedArray<T>.Compare(minValue, maxValue) == 0)
             {
-                throw new ArgumentException($"The values of {nameof(MinValue)} and {nameof(MaxValue)} are the same.");
+                throw new ArgumentException($"The values of {nameof(minValue)} and {nameof(maxValue)} are the same.");
             }
-            else if (AdvancedArray<T>.Compare(MinValue, MaxValue) > 0)
+            else if (AdvancedArray<T>.Compare(minValue, maxValue) > 0)
             {
-                throw new ArgumentException($"The value of {nameof(MinValue)} is bigger than the value of {nameof(MaxValue)}.");
+                throw new ArgumentException($"The value of {nameof(minValue)} is bigger than the value of {nameof(maxValue)}.");
             }
-            else if (AdvancedArray<T>.Compare(MaxValue, MinValue) < 0)
+            else if (AdvancedArray<T>.Compare(maxValue, minValue) < 0)
             {
-                throw new ArgumentException($"The value of {nameof(MaxValue)} is less than the value of {nameof(MinValue)}.");
+                throw new ArgumentException($"The value of {nameof(maxValue)} is less than the value of {nameof(minValue)}.");
             }
-            else if ((AdvancedArray<T>.Compare(MinValue, MinValueOf(typeof(T))) < 0) || (AdvancedArray<T>.Compare(MaxValue, MaxValueOf(typeof(T))) > 0))
+            else if ((AdvancedArray<T>.Compare(minValue, AdvancedArray<T>.MinValueOf(typeof(T))) < 0)
+                || (AdvancedArray<T>.Compare(maxValue, AdvancedArray<T>.MaxValueOf(typeof(T))) > 0))
             {
                 AdvancedArray<T>.ThrowOverflowException();
             }
@@ -758,51 +771,51 @@ namespace Sorting
         /// <returns>The minimum value of the type.</returns>
         private static T MinValueOf(Type type)
         {
-            if (type.Equals(typeof(System.SByte)))
+            if (type.Equals(typeof(sbyte)))
             {
                 return (T)Convert.ChangeType(sbyte.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Byte)))
+            else if (type.Equals(typeof(byte)))
             {
                 return (T)Convert.ChangeType(byte.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Int16)))
+            else if (type.Equals(typeof(short)))
             {
                 return (T)Convert.ChangeType(short.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.UInt16)))
+            else if (type.Equals(typeof(ushort)))
             {
                 return (T)Convert.ChangeType(ushort.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Int32)))
+            else if (type.Equals(typeof(int)))
             {
                 return (T)Convert.ChangeType(int.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.UInt32)))
+            else if (type.Equals(typeof(uint)))
             {
                 return (T)Convert.ChangeType(uint.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Int64)))
+            else if (type.Equals(typeof(long)))
             {
                 return (T)Convert.ChangeType(long.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.UInt64)))
+            else if (type.Equals(typeof(ulong)))
             {
                 return (T)Convert.ChangeType(ulong.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Single)))
+            else if (type.Equals(typeof(float)))
             {
                 return (T)Convert.ChangeType(float.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Double)))
+            else if (type.Equals(typeof(double)))
             {
                 return (T)Convert.ChangeType(double.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Decimal)))
+            else if (type.Equals(typeof(decimal)))
             {
                 return (T)Convert.ChangeType(decimal.MinValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Char)))
+            else if (type.Equals(typeof(char)))
             {
                 return (T)Convert.ChangeType(char.MinValue, typeof(T));
             }
@@ -827,51 +840,51 @@ namespace Sorting
         /// <returns>The maximum value of the type.</returns>
         private static T MaxValueOf(Type type)
         {
-            if (type.Equals(typeof(System.SByte)))
+            if (type.Equals(typeof(sbyte)))
             {
                 return (T)Convert.ChangeType(sbyte.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Byte)))
+            else if (type.Equals(typeof(byte)))
             {
                 return (T)Convert.ChangeType(byte.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Int16)))
+            else if (type.Equals(typeof(short)))
             {
                 return (T)Convert.ChangeType(short.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.UInt16)))
+            else if (type.Equals(typeof(ushort)))
             {
                 return (T)Convert.ChangeType(ushort.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Int32)))
+            else if (type.Equals(typeof(int)))
             {
                 return (T)Convert.ChangeType(int.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.UInt32)))
+            else if (type.Equals(typeof(uint)))
             {
                 return (T)Convert.ChangeType(uint.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Int64)))
+            else if (type.Equals(typeof(long)))
             {
                 return (T)Convert.ChangeType(long.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.UInt64)))
+            else if (type.Equals(typeof(ulong)))
             {
                 return (T)Convert.ChangeType(ulong.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Single)))
+            else if (type.Equals(typeof(float)))
             {
                 return (T)Convert.ChangeType(float.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Double)))
+            else if (type.Equals(typeof(double)))
             {
                 return (T)Convert.ChangeType(double.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Decimal)))
+            else if (type.Equals(typeof(decimal)))
             {
                 return (T)Convert.ChangeType(decimal.MaxValue, typeof(T));
             }
-            else if (type.Equals(typeof(System.Char)))
+            else if (type.Equals(typeof(char)))
             {
                 return (T)Convert.ChangeType(char.MaxValue, typeof(T));
             }

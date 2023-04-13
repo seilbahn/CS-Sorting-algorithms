@@ -17,8 +17,11 @@ namespace Sorting
     /// </summary>
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>
-    public class QuickSort<T> : Algorithm<T>, ISortable<T> where T : IComparable
+    public class QuickSort<T> : Algorithm<T> where T : IComparable
     {
+        /// <summary>
+        /// Initializes a new instance of the QuickSort class.
+        /// </summary>
         public QuickSort()
         {
             Name = SortingAlgorithm.QuickSort;
@@ -30,6 +33,7 @@ namespace Sorting
             WorstCaseSpaceComplexity = "O(n)";
         }
 
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         public override T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending)
         {
             T[] output = new T[input.Length];
@@ -71,10 +75,14 @@ namespace Sorting
             }
 
             if (leftIndex < j)
+            {
                 SortArray(array, leftIndex, j, sortingType);
+            }
 
             if (i < rightIndex)
+            {
                 SortArray(array, i, rightIndex, sortingType);
+            }
 
             return array;
         }

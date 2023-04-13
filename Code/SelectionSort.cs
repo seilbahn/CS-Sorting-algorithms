@@ -18,8 +18,11 @@ namespace Sorting
     /// </summary>
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>
-    public class SelectionSort<T> : Algorithm<T>, ISortable<T> where T : IComparable
+    public class SelectionSort<T> : Algorithm<T> where T : IComparable
     {
+        /// <summary>
+        /// Initializes a new instance of the SelectionSort class.
+        /// </summary>
         public SelectionSort()
         {
             Name = SortingAlgorithm.SelectionSort;
@@ -31,6 +34,7 @@ namespace Sorting
             WorstCaseSpaceComplexity = "O(1)";
         }
 
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         public override T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending)
         {
             T[] output = new T[input.Length];

@@ -2,14 +2,18 @@
 {
     /// <summary>
     /// The enumeration Format represents
-    /// some types of the report.<br/>
-    /// Txt - a simple txt-file<br/>
-    /// Excel - .xlsx-format file<br/>
+    /// types of the report.
     /// </summary>
     [System.Flags]
-    public enum Format : byte
+    internal enum Format : byte
     {
-        Txt    = 0b_0,
-        Excel  = 0b_1
+        /// <summary>
+        /// The .txt-file type of the report.
+        /// </summary>
+        Txt    = 0b_0000,
+        /// <summary>
+        /// The .xlsx-file type of the report.
+        /// </summary>
+        Excel  = 0b_0001
     }
 }

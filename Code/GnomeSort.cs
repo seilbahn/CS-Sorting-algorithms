@@ -10,8 +10,11 @@ namespace Sorting
     /// </summary>
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>
-    public class GnomeSort<T> : Algorithm<T>, ISortable<T> where T : IComparable
+    public class GnomeSort<T> : Algorithm<T> where T : IComparable
     {
+        /// <summary>
+        /// Initializes a new instance of the GnomeSort class.
+        /// </summary>
         public GnomeSort()
         {
             Name = SortingAlgorithm.GnomeSort;
@@ -23,6 +26,7 @@ namespace Sorting
             WorstCaseSpaceComplexity = "O(1)";
         }
 
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         public override T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending)
         {
             T[] output = new T[input.Length];

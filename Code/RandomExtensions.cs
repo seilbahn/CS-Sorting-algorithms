@@ -1,6 +1,6 @@
 namespace Sorting
 {
-    public static class RandomExtensions
+    internal static class RandomExtensions
     {
         public static int NextInt32(this Random rng)
         {

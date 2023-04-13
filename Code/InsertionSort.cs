@@ -16,8 +16,11 @@ namespace Sorting
     /// </summary>
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>
-    public class InsertionSort<T> : Algorithm<T>, ISortable<T> where T : IComparable
+    public class InsertionSort<T> : Algorithm<T> where T : IComparable
     {
+        /// <summary>
+        /// Initializes a new instance of the InsertionSort class.
+        /// </summary>
         public InsertionSort()
         {
             Name = SortingAlgorithm.InsertionSort;
@@ -29,6 +32,7 @@ namespace Sorting
             WorstCaseSpaceComplexity = "O(1)";
         }
 
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         public override T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending)
         {
             T[] output = new T[input.Length];

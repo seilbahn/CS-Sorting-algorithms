@@ -189,6 +189,9 @@
   <data name="New" xml:space="preserve">
     <value>Новый</value>
   </data>
+  <data name="Other" xml:space="preserve">
+    <value>Другой</value>
+  </data>
   <data name="OutputArray" xml:space="preserve">
     <value>Выходной массив</value>
   </data>

@@ -3,29 +3,10 @@
 namespace Sorting
 {
     /// <summary>
-    /// The abstract class Algorithm is created to be a template<br/>
-    /// for any other sorting algorithms.<br/>
-    /// The class defines some propertis and methods.<br/>
-    /// Properties:<br/>
-    /// 1.Name. It contains the name of the algorithm.
-    /// It should be one of the SortingAlgorithm enumeration values;<br/>
-    /// 2.Time. It contains elapsed time in milliseconds
-    /// from the start of the sorting algorithm to its end;<br/>
-    /// 3.IsStabil. The algorothm can be stabil or not.
-    /// Stable sorting algorithms maintain the relative order of records
-    /// with equal keys;<br/>
-    /// 4.Comparisons: how often must the algorithm compare
-    /// keys to sort the array;<br/>
-    /// 5.Swaps: how many elements change their places in the array;<br/>
-    /// 6.Complexity: BestCase, AverageCase and WorstCase.
-    /// The amount of computer time it takes to run an algorithm.<br/>
-    /// Time complexity is commonly estimated by counting the number
-    /// of elementary operations performed by the algorithm,<br/>
-    /// supposing that each elementary operation takes a fixed amount of time to perform.
+    /// The abstract class Algorithm is created to be a template
+    /// for any other sorting algorithms.
     /// </summary>
-    /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
-    /// long, ulong, float, double, decimal, char</typeparam>
-    abstract public class Algorithm<T> where T : IComparable
+    abstract public class Algorithm : ISortable
     {
         /// <summary>
         /// The name of the algorithm.<br/>The enumeration SortingAlgorithm contains
@@ -92,6 +73,9 @@ namespace Sorting
         /// </summary>
         public string WorstCaseSpaceComplexity { get; protected set; }
 
+        /// <summary>
+        /// Initializes a new instance of the Algorithm class.
+        /// </summary>
         protected Algorithm()
         {
             Name = SortingAlgorithm.DefaultSort;
@@ -112,12 +96,127 @@ namespace Sorting
         /// </summary>
         /// <param name="input">The reference to the input array.</param>
         /// <param name="sortingType">The type of sorting.<br/>
-        /// The algorithm can sort ascending also descending.<br/>This parameter
-        /// should be one of the enumeration SortingType values: SortingType.Ascending or
-        /// SortingType.Descending.</param>
+        /// The algorithm can sort ascending also descending.<br/>
+        /// This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+        /// SortingType.Descending.<br/>
+        /// The default value is SortingType.Ascending.</param>
         /// <returns>The reference to the new sorted array.
         /// The input array will stay the same.</returns>
+        abstract public sbyte[] Sort(sbyte[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public byte[] Sort(byte[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public short[] Sort(short[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public ushort[] Sort(ushort[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public int[] Sort(int[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public uint[] Sort(uint[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public long[] Sort(long[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public ulong[] Sort(ulong[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public float[] Sort(float[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public double[] Sort(double[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public decimal[] Sort(decimal[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Sort(sbyte[], SortingType)"/>
+        abstract public char[] Sort(char[] input, SortingType sortingType = SortingType.Ascending);
+    }
+
+    /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+    /// long, ulong, float, double, decimal, char</typeparam>
+    /// <inheritdoc cref="Algorithm"/>
+    abstract public class Algorithm<T> : Algorithm where T : IComparable
+    {
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         abstract public T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending);
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override sbyte[] Sort(sbyte[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override byte[] Sort(byte[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override short[] Sort(short[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override ushort[] Sort(ushort[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override int[] Sort(int[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override uint[] Sort(uint[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override long[] Sort(long[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override ulong[] Sort(ulong[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override float[] Sort(float[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override double[] Sort(double[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override decimal[] Sort(decimal[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
+
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
+        public override char[] Sort(char[] input, SortingType sortingType = SortingType.Ascending)
+        {
+            return Sort(input, sortingType);
+        }
 
         /// <summary>
         /// The method is created to compare two generic variables.<br/>
@@ -144,7 +243,7 @@ namespace Sorting
         /// if (x &lt; y) then it returns &lt; 0
         /// </c>
         /// </returns>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">If x or y argument is null, the argument exception will be thrown.</exception>
         protected int Compare(T? x, T? y, SortingType sortingType = SortingType.Ascending)
         {
             Comparisons++;
@@ -164,7 +263,7 @@ namespace Sorting
         }
 
         /// <summary>
-        /// The method swaps two keys:
+        /// The method swaps two keys in the array:
         /// array[i] ↔ array[j].
         /// </summary>
         /// <param name="input">The reference to the array.</param>

@@ -1,4 +1,5 @@
 #nullable disable
+
 using System.Diagnostics;
 
 namespace Sorting
@@ -15,9 +16,25 @@ namespace Sorting
     /// </summary>
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>
-    public class TreeSort<T> : Algorithm<T>, ISortable<T> where T : IComparable
+    public class TreeSort<T> : Algorithm<T> where T : IComparable
     {
-        private List<T> ResultedList;
+        private class Node
+        {
+            public T key;
+            public Node left, right;
+
+            public Node(T item)
+            {
+                key = item;
+                left = right = null;
+            }
+        }
+
+        private List<T> ResultedList { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the BubbleSort class.
+        /// </summary>
         public TreeSort()
         {
             Name = SortingAlgorithm.TreeSort;
@@ -31,6 +48,7 @@ namespace Sorting
             ResultedList = new List<T>();
         }
 
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         public override T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending)
         {
             T[] output = new T[input.Length];
@@ -45,26 +63,14 @@ namespace Sorting
             return output;
         }
 
-        public class Node
-        {
-            public T key;
-            public Node left, right;
+        private Node root;
 
-            public Node(T item)
-            {
-                key = item;
-                left = right = null;
-            }
+        private void Insert(T key, SortingType sortingType)
+        {
+            root = InsertRec(root, key, sortingType);
         }
 
-        Node root;
-
-        void insert(T key, SortingType sortingType)
-        {
-            root = insertRec(root, key, sortingType);
-        }
-
-        Node insertRec(Node root, T key, SortingType sortingType)
+        private Node InsertRec(Node root, T key, SortingType sortingType)
         {
             if (root == null)
             {
@@ -73,37 +79,37 @@ namespace Sorting
             }
             if (Compare(key, root.key, sortingType) <= 0)
             {
-                root.left = insertRec(root.left, key, sortingType);
+                root.left = InsertRec(root.left, key, sortingType);
             }
             else if (Compare(key, root.key, sortingType) > 0)
             {
-                root.right = insertRec(root.right, key, sortingType);
+                root.right = InsertRec(root.right, key, sortingType);
             }
             return root;
         }
 
-        void inorderRec(Node root)
+        private void InorderRec(Node root)
         {
             if (root != null)
             {
-                inorderRec(root.left);
+                InorderRec(root.left);
                 ResultedList.Add(root.key);
-                inorderRec(root.right);
+                InorderRec(root.right);
             }
         }
-        void treeins(T[] arr, SortingType sortingType)
+        private void Treeins(T[] arr, SortingType sortingType)
         {
             for (int i = 0; i < arr.Length; i++)
             {
-                insert(arr[i], sortingType);
+                Insert(arr[i], sortingType);
                 Swaps++;
             }
         }
 
-        T[] PreSort(T[] array, SortingType sortingType)
+        private T[] PreSort(T[] array, SortingType sortingType)
         {
-            treeins(array, sortingType);
-            inorderRec(root);
+            Treeins(array, sortingType);
+            InorderRec(root);
             return ResultedList.ToArray<T>();
         }
     }

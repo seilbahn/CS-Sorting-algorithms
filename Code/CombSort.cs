@@ -14,8 +14,11 @@ namespace Sorting
     /// </summary>
     /// <typeparam name="T">sbyte, byte, short, ushort, int, uint,
     /// long, ulong, float, double, decimal, char</typeparam>
-    public class CombSort<T> : Algorithm<T>, ISortable<T> where T : IComparable
+    public class CombSort<T> : Algorithm<T> where T : IComparable
     {
+        /// <summary>
+        /// Initializes a new instance of the CombSort class.
+        /// </summary>
         public CombSort()
         {
             Name = SortingAlgorithm.CombSort;
@@ -27,6 +30,7 @@ namespace Sorting
             WorstCaseSpaceComplexity = "O(1)";
         }
 
+        /// <inheritdoc cref="Algorithm.Sort(sbyte[], SortingType)"/>
         public override T[] Sort(T[] input, SortingType sortingType = SortingType.Ascending)
         {
             T[] output = new T[input.Length];

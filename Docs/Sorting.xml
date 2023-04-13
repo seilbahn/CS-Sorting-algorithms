@@ -1,0 +1,2087 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Sorting</name>
+  </assembly>
+  <members>
+    <member name="T:Sorting.AdvancedArray`1">
+      <summary>
+            The class AdvancedArrays&lt;T&gt; is designed  for:<br />
+            1) creating arrays in the range from 0 to 2_146_435_071. It supports
+            also assigment of max- and min- values in the array and how many
+            same numbers it contains;<br />
+            2) operations to double, reverse and shuffle array.<br />
+            It is a generic type class which implements IComparable interface.<br />
+            You should use sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char types for correct working.
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.#ctor">
+      <summary>
+            It initializes a new instance of the AdvancedArray class.<br />
+            The array size is default (10).<br />
+            The minimum and maximum values are equal to the min- and maximum values of generic type &lt;T&gt;.
+            </summary>
+      <returns>A new object of AdvancedArray class.</returns>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.#ctor(System.Int32)">
+      <summary>
+            It initializes a new instance of the AdvancedArray class.<br />
+            The minimum and maximum values are equal to the min- and maximum values of generic type &lt;T&gt;.
+            </summary>
+      <param name="sizeOfArray"> The size of generating array.
+            It should be within the range [1 ; 2_146_435_071].<br />
+            DON'T use int.MaxValue or System.Int32.MaxValue.<br />
+            There is a readonly value MAXIMUM_INDEX = 2_146_435_071 for this case.</param>
+      <returns>A new object of AdvancedArray class.</returns>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.#ctor(System.Int32,`0,`0,System.Decimal,Sorting.ArrayType)">
+      <summary>
+            It initializes a new instance of the AdvancedArray class.<br /></summary>
+      <param name="sizeOfArray"> The size of generating array.
+            It should be within the range [1 ; 2_146_435_071].<br />
+            DON'T use int.MaxValue or System.Int32.MaxValue.<br />
+            There is a readonly value MAXIMUM_INDEX = 2_146_435_071 for
+            this case.</param>
+      <param name="minimumValue">Minimum value of the array elements.<br />
+            It should be within the range [type.MinValue ; type.MaxValue].</param>
+      <param name="maximumValue">Maximum value of the array elements.<br />
+            It should be within the range (Minimum Value ; type.MaxValue].</param>
+      <param name="SimilarElementsExpectancy">This parameter is created for
+            assigning the probability of occurrence for one value in the whole array.<br />
+            It should be within the range [0.1 ; 1.0].<br />
+            0.1 means that 10 % of the array will be filled with the same value
+            (How many elements will be the same).</param>
+      <param name="type">This parameter defines which type the array should be.<br />
+            Without this parameter the array will be random type.<br />
+            ArrayType.Random - the default random generated array.<br />
+            ArrayType.Sorted - the array will be sorted ascending.<br />
+            ArrayType.NearlySorted - the array will contain unsorted elements, but
+            mostly it will be sorted ascending.<br />
+            ArrayType.Reversed - the array will be sorted descending.<br />
+            ArrayType.FewUnique - the array will contain a very limited set of values.</param>
+    </member>
+    <member name="P:Sorting.AdvancedArray`1.ArrayType">
+      <summary>
+            The type of the array.
+            ArrayType.Random - the default random generated array (default).<br />
+            ArrayType.Sorted - the array will be sorted ascending.<br />
+            ArrayType.NearlySorted - the array will contain unsorted elements, but
+            mostly it will be sorted ascending.<br />
+            ArrayType.Reversed - the array will be sorted descending.<br />
+            ArrayType.FewUnique - the array will contain a very limited set of values.
+            </summary>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.Clone">
+      <summary>
+            The method makes a copy of the object.
+            </summary>
+      <returns>The reference to the copy of the primary object.</returns>
+      <exception cref="T:System.NullReferenceException">If the primary object is null,
+            there will be the null reference exception.</exception>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.Copy">
+      <summary>
+            The method creates a copy of the internal array.
+            </summary>
+      <returns>The reference to the new array.</returns>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.Copy(`0[])">
+      <summary>
+            The method creates a copy of the input array.
+            </summary>
+      <param name="input">The reference to the array for copying.</param>
+      <returns>The reference to the new array.</returns>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.CreateArray(System.Int32,`0,`0,System.Decimal,Sorting.ArrayType)">
+      <summary>
+            This method generates an array with assigned parameters.<br />
+            The type of the returned array is the same as generic type.
+            </summary>
+      <param name="sizeOfArray"> The size of generating array.<br />
+            It should be within the range [1 ; 2_146_435_071].<br />
+            DON'T use int.MaxValue or System.Int32.MaxValue.
+            There is a readonly value MAXIMUM_INDEX = 2_146_435_071 for
+            this case.</param>
+      <param name="minimumValue">Minimum value of the array elements.<br />
+            It should be within the range [type.MinValue ; type.MaxValue].</param>
+      <param name="maximumValue">Maximum value of the array elements.<br />
+            It should be within the range (Minimum Value ; type.MaxValue].</param>
+      <param name="similarElementsExpectancy">This parameter is used for
+            assigning the probability of occurrence for one value in the whole array.<br />
+            It should be within the range [0.1 ; 1.0].<br />
+            0.1 means that 10 % of the array will be filled with the same value
+            (How many elements will be the same).</param>
+      <param name="arrayType">It defines which type the array should be.<br />
+            Without this parameter the array will be random type.<br />
+            ArrayType.Random - the default random generated array.<br />
+            ArrayType.Sorted - the array will be sorted ascending.<br />
+            ArrayType.NearlySorted - the array will contain unsorted elements, but
+            mostly it will be sorted ascending.<br />
+            ArrayType.Reversed - the array will be sorted descending.<br />
+            ArrayType.FewUnique - the array will contain a very limited set of values.</param>
+      <returns>The generated array with the type of generic.</returns>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.CreateArray(`0,`0,System.Decimal,Sorting.ArrayType)">
+      <summary>
+            This method generates an array with assigned parameters.<br />
+            The type of the returned array is the same as generic type.
+            </summary>
+      <param name="minimumValue">Minimum value of the array elements.<br />
+            It should be within the range [type.MinValue ; type.MaxValue].</param>
+      <param name="maximumValue">Maximum value of the array elements.<br />
+            It should be within the range (Minimum Value ; type.MaxValue].</param>
+      <param name="similarElementsExpectancy">This parameter is used for
+            assigning the probability of occurrence for one value in the whole array.<br />
+            It should be within the range [0.1 ; 1.0].<br />
+            0.1 means that 10 % of the array will be filled with the same value
+            (How many elements will be the same).</param>
+      <param name="arrayType">It defines which type the array should be.<br />
+            Without this parameter the array will be random type.<br />
+            ArrayType.Random - the default random generated array.<br />
+            ArrayType.Sorted - the array will be sorted ascending.<br />
+            ArrayType.NearlySorted - the array will contain unsorted elements, but
+            mostly it will be sorted ascending.<br />
+            ArrayType.Reversed - the array will be sorted descending.<br />
+            ArrayType.FewUnique - the array will contain a very limited set of values.</param>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.DoubleArray">
+      <summary>
+            This method duplicates the internal array.<br />
+            The array will be twiced.<br />
+            If the duplicated length of the internal array is more than 2_146_435_071,
+            the method will return the same array.
+            </summary>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.DoubleArray(`0[])">
+      <summary>
+            This method returns a duplicated array.<br />
+            The input array will be twiced.<br />
+            If the duplicated length of the input array is more than 2_146_435_071,
+            the method will return the same array.
+            </summary>
+      <param name="input">The array for duplicating.</param>
+      <returns>The duplicated array.</returns>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.IsSorted(`0[])">
+      <summary>
+            The method checks whether the input array is sorted.
+            </summary>
+      <param name="input">The array for checking.</param>
+      <returns>True if the input array is sorted.<br />
+            False if the input array is not sorted.</returns>
+    </member>
+    <member name="P:Sorting.AdvancedArray`1.Item(System.Int32)">
+      <summary>
+            The indexer for the internal array.
+            </summary>
+      <param name="index">The index of the key.</param>
+      <returns>The value at the index position.</returns>
+      <exception cref="T:System.IndexOutOfRangeException">If the index
+            is out of array borders, the IndexOutOfRangeException will be thrown.</exception>
+    </member>
+    <member name="F:Sorting.AdvancedArray`1.MaximumIndex">
+      <summary>
+            2_146_435_071 is the maximum size for arrays of any structure.<br />
+            Accorting to the site:<br />
+            https://learn.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/gcallowverylargeobjects-element.<br />
+            This value was chosen to avoid out of memory and any other exceptions although there is an opportunity to use
+            bigger values.<br />
+            This class is created for the array capacity within System.Int32.<br />
+            If you need bigger arrays you should use BigArray&lt;T&gt;.
+            </summary>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.PrintToConsole">
+      <summary>
+            The method prints the internal array to the console.
+            </summary>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.PrintToConsole(`0[])">
+      <summary>
+            The method prints the input array to the console.
+            </summary>
+      <param name="input">The array for printing.</param>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.ReverseArray">
+      <summary>
+            The method reverses the internal array.
+            </summary>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.ReverseArray(`0[])">
+      <summary>
+            The method reverses the input array.
+            </summary>
+      <param name="input">The array for reversing.</param>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.ShuffleArray">
+      <summary>
+            This method shuffles the internal array.
+            </summary>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.ShuffleArray(`0[])">
+      <summary>
+            This method shuffles the input array.
+            </summary>
+      <param name="input">The array for shuffling.</param>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.SimilarArrayElements(System.Decimal)">
+      <summary>
+            This method similizes the internal array.<br />
+            It makes the elements more similar by replacing them with the same element.<br />
+            The parameter SimilarElementsExpectancy is used for
+            assigning the probability of occurrence for one value in the whole array.<br />
+            It should be within the range [0.1 ; 1.0].<br />
+            0.1 means that 10 % of the array will be filled with the same value
+            (How many elements will be the same).
+            </summary>
+      <param name="similarElementsExpectancy">This parameter is used for
+            assigning the probability of occurrence for one value in the whole array.<br />
+            It should be within the range [0.1 ; 1.0].<br />
+            0.1 means that 10 % of the array will be filled with the same value
+            (How many elements will be the same).</param>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.SimilarArrayElements(`0[],System.Decimal)">
+      <summary>
+            This method similizes the input array.<br />
+            It makes the elements more similar by replacing them with the same element.<br />
+            The parameter SimilarElementsExpectancy is used for
+            assigning the probability of occurrence for one value in the whole array.<br />
+            It should be within the range [0.1 ; 1.0].<br />
+            0.1 means that 10 % of the array will be filled with the same value
+            (How many elements will be the same).
+            </summary>
+      <param name="input">The array for similaring elements.</param>
+      <param name="similarElementsExpectancy">This parameter is used for
+            assigning the probability of occurrence for one value in the whole array.<br />
+            It should be within the range [0.1 ; 1.0].<br />
+            0.1 means that 10 % of the array will be filled with the same value
+            (How many elements will be the same).</param>
+    </member>
+    <member name="P:Sorting.AdvancedArray`1.Size">
+      <summary>
+            The size of the array.
+            </summary>
+      <value>It returns the size value of the array.</value>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.Sort">
+      <summary>
+            The method sorts the internal array in ascending order.
+            </summary>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.Sort(`0[])">
+      <summary>
+            The method creates a copy of the input arrat
+            and sorts the new array in ascending order.
+            </summary>
+      <param name="input">The reference to the array for soring.</param>
+      <returns>The reference to the new created sorted array.</returns>
+    </member>
+    <member name="P:Sorting.AdvancedArray`1.Sorted">
+      <summary>
+            Is the array sorted ascending or not.
+            </summary>
+    </member>
+    <member name="P:Sorting.AdvancedArray`1.TArray">
+      <summary>
+            The reference to the array which is used inside the class.
+            </summary>
+      <value>The internal array.</value>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.ToString">
+      <summary>
+            The method returns a string that represents the internal array.
+            </summary>
+      <returns>A string value of the internal array.</returns>
+    </member>
+    <member name="M:Sorting.AdvancedArray`1.ToString(`0[])">
+      <summary>
+            The method returns a string that represents the input array.
+            </summary>
+      <param name="input">The input array.</param>
+      <returns>A string value of the input array.</returns>
+    </member>
+    <member name="T:Sorting.Algorithm">
+      <summary>
+            The abstract class Algorithm is created to be a template
+            for any other sorting algorithms.
+            </summary>
+    </member>
+    <member name="M:Sorting.Algorithm.#ctor">
+      <summary>
+            Initializes a new instance of the Algorithm class.
+            </summary>
+    </member>
+    <member name="P:Sorting.Algorithm.AverageCase">
+      <summary>
+            The algorithm complexity in the average case.<br />
+            It defines the average case of an algorithm’s time complexity,
+            the Theta notation defines when the set of functions lies in both O(expression)
+            and Omega(expression), then Theta notation is used.<br />
+            This is how we define a time complexity average case for an algorithm. 
+            </summary>
+    </member>
+    <member name="P:Sorting.Algorithm.BestCase">
+      <summary>
+            The algorithm complexity in the best case.<br />
+            The array may be already sorted, and
+            the best case will be "Ω(1)".<br />
+            It defines the best case of an algorithm’s time complexity,
+            the Omega notation defines whether the set of functions will grow
+            faster or at the same rate as the expression.<br />
+            Furthermore, it explains the minimum amount of time an algorithm
+            requires to consider all input values.
+            </summary>
+    </member>
+    <member name="P:Sorting.Algorithm.Comparisons">
+      <summary>
+            The amount of compare operations.
+            </summary>
+    </member>
+    <member name="P:Sorting.Algorithm.IsStabil">
+      <summary>
+            Is the sorting algorithm stabil or not?<br />
+            Stable sorting algorithms maintain the relative order of records
+            with equal keys.
+            </summary>
+    </member>
+    <member name="P:Sorting.Algorithm.Name">
+      <summary>
+            The name of the algorithm.<br />The enumeration SortingAlgorithm contains
+            some algorithm names. The name DefaultSort is used by default.
+            </summary>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.Byte[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.Char[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.Decimal[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.Double[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.Int16[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.Int32[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.Int64[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.SByte[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.Single[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.UInt16[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.UInt32[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm.Sort(System.UInt64[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="P:Sorting.Algorithm.Swaps">
+      <summary>
+            The amount of the changing keys position operations.
+            </summary>
+    </member>
+    <member name="P:Sorting.Algorithm.Time">
+      <summary>
+            The Stopwatch class instance.
+            </summary>
+    </member>
+    <member name="P:Sorting.Algorithm.WorstCase">
+      <summary>
+            The algorithm complexity in the worst case.<br />
+            It defines worst-case time complexity by using the Big-O notation,
+            which determines the set of functions grows slower than or at the same rate as the expression.<br />
+            Furthermore, it explains the maximum amount of time an algorithm requires to consider all input values.
+            </summary>
+    </member>
+    <member name="P:Sorting.Algorithm.WorstCaseSpaceComplexity">
+      <summary>
+            Memory usage (and use of other computer resources).<br />
+            In particular, some sorting algorithms are "in-place".<br />
+            Strictly, an in-place sort needs only O(1) memory beyond the items being sorted;
+            sometimes O(log n) additional memory is considered "in-place".
+            </summary>
+    </member>
+    <member name="T:Sorting.Algorithm`1">
+      <summary>
+            The abstract class Algorithm is created to be a template
+            for any other sorting algorithms.
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.Algorithm`1.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Sorting.Algorithm`1</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Compare(`0,`0,Sorting.SortingType)">
+      <summary>
+            The method is created to compare two generic variables.<br /><c>
+            Compare(x, y);<br />
+            if (x &gt; y) then it returns &gt; 0<br />
+            if (x == y) then it returns 0<br />
+            if (x &lt; y) then it returns &lt; 0
+            </c></summary>
+      <param name="x">The first value.</param>
+      <param name="y">The second value.</param>
+      <param name="sortingType">The algorithm can sort ascending also descending.<br />
+            If you need ascending sorting, you do not have to specify this parameter.<br />
+            If you need descending sorting, you should specify this parameter with SortingType.Descending.<br />
+            Warning: if you specify SortingType.Descending, the method will compare the second value with the first value.<br />
+            So, in this case, the method will work oppositely.
+            </param>
+      <returns>
+        <c>
+            Compare(x, y);<br />
+            if (x &gt; y) then it returns &gt; 0<br />
+            if (x == y) then it returns 0<br />
+            if (x &lt; y) then it returns &lt; 0
+            </c>
+      </returns>
+      <exception cref="T:System.ArgumentException">If x or y argument is null, the argument exception will be thrown.</exception>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.Byte[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.Char[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.Decimal[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.Double[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.Int16[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.Int32[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.Int64[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.SByte[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.Single[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.UInt16[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.UInt32[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(System.UInt64[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.Algorithm`1.Swap(`0[],System.Int32,System.Int32)">
+      <summary>
+            The method swaps two keys in the array:
+            array[i] ↔ array[j].
+            </summary>
+      <param name="input">The reference to the array.</param>
+      <param name="i">The index of the first element.</param>
+      <param name="j">The index of the second element.</param>
+    </member>
+    <member name="T:Sorting.AlgorithmsInfo">
+      <summary>
+            The class AlgorithmsInfo represents the way to add the algorithms information
+            to the class Printer while creating a report.
+            </summary>
+    </member>
+    <member name="M:Sorting.AlgorithmsInfo.#ctor">
+      <summary>
+            Initializes a new instance of the AlgorithmsList class.
+            </summary>
+    </member>
+    <member name="M:Sorting.AlgorithmsInfo.#ctor(System.Collections.Generic.List{Sorting.ISortable})">
+      <summary>
+            Initializes a new instance of the AlgorithmsList class.
+            </summary>
+      <param name="list">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>list</parameter>
+            <parameter>M:Sorting.AlgorithmsInfo.#ctor(System.Collections.Generic.List{Sorting.ISortable})</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="M:Sorting.AlgorithmsInfo.AddAlgorithm(Sorting.ISortable)">
+      <summary>
+            The method adds a reference to the instance of the
+            algorithm to the internal list.
+            </summary>
+      <param name="algorithm">The algorithm for the report.</param>
+      <exception cref="T:System.ArgumentNullException"></exception>
+    </member>
+    <member name="P:Sorting.AlgorithmsInfo.AlgorithmsList">
+      <summary>
+            The internal list of the sorting algorithms.
+            It contains algorithms information for the report.
+            </summary>
+    </member>
+    <member name="M:Sorting.AlgorithmsInfo.DeleteAlgorithms">
+      <summary>
+            The method deletes all algorithms in the internal list.
+            </summary>
+    </member>
+    <member name="P:Sorting.AlgorithmsInfo.Item(System.Int32)">
+      <summary>
+            The indexer for the list of algorithms.
+            </summary>
+      <param name="index">The index of the key.</param>
+      <returns>The value at the index position.</returns>
+      <exception cref="T:System.IndexOutOfRangeException">If the index
+            is out of list borders, the IndexOutOfRangeException will be thrown.</exception>
+    </member>
+    <member name="T:Sorting.ArraysInfo">
+      <summary>
+            The class ArraysInfo is created to contain arrays information for printing.<br />
+            The class properties InputArray and OutputArray are dynamic types,<br />
+            but they should be digit or char arrays or AdvancedArray type.<br />
+            It does not matter whether the arrays are sorted or the same type.<br />
+            The class Printer will print them both if they match to the array or AdvancedArray type.
+            </summary>
+    </member>
+    <member name="M:Sorting.ArraysInfo.#ctor(System.Object,System.Object)">
+      <summary>
+            Initializes a new instance of the ArraysInfo class.
+            </summary>
+      <param name="Input">The input array for printing.<br />
+            It should be a digit or char array or AdvancedArray type.</param>
+      <param name="Output">The output array for printing.<br />
+            It should be a digit or char array or AdvancedArray type.</param>
+      <exception cref="T:System.ArgumentException"></exception>
+    </member>
+    <member name="P:Sorting.ArraysInfo.InputArray">
+      <summary>
+            The input array for printing.<br />
+            It should be a digit or char array or AdvancedArray type.
+            </summary>
+    </member>
+    <member name="P:Sorting.ArraysInfo.InputArraySize">
+      <summary>
+            The length of the input array.
+            </summary>
+    </member>
+    <member name="P:Sorting.ArraysInfo.InputArrayType">
+      <summary>
+            The type of the input array. It is created
+            to show the character of the array.<br />
+            The arrays can be very different. Sometimes it is important to know
+            which array type was beeing contained while calculating.
+            </summary>
+    </member>
+    <member name="P:Sorting.ArraysInfo.IsInputArraySorted">
+      <summary>
+            Is the input array ascending sorted or not.
+            </summary>
+    </member>
+    <member name="P:Sorting.ArraysInfo.IsOutputArraySorted">
+      <summary>
+            Is the output array ascending sorted or not.
+            </summary>
+    </member>
+    <member name="P:Sorting.ArraysInfo.OutputArray">
+      <summary>
+            The output array for printing.<br />
+            It should be a digit or char array or AdvancedArray type.
+            </summary>
+    </member>
+    <member name="P:Sorting.ArraysInfo.OutputArraySize">
+      <summary>
+            The length of the output array.
+            </summary>
+    </member>
+    <member name="P:Sorting.ArraysInfo.OutputArrayType">
+      <summary>
+            The type of the output array. It is created
+            to show the character of the array.<br />
+            The arrays can be very different. Sometimes it is important to know
+            which array type was beeing contained while calculating.
+            </summary>
+    </member>
+    <member name="T:Sorting.ArrayType">
+      <summary>
+            The enumeration ArrayType represents
+            types of the array.<br />
+            In practice it may be hard to define which type the array is.<br />
+            The randomized array has a chance to be sorted or reversed.
+            Although the expectation will be very small in this case.
+            The algorithm for the creating an array with the defined type will do the best
+            to create an array which will be match the type.
+            </summary>
+    </member>
+    <member name="F:Sorting.ArrayType.Random">
+      <summary>
+            The default randomized array.<br />
+            It means that the array contains different keys and it is not sorted.
+            </summary>
+    </member>
+    <member name="F:Sorting.ArrayType.Sorted">
+      <summary>
+            The ascending sorted array.
+            </summary>
+    </member>
+    <member name="F:Sorting.ArrayType.NearlySorted">
+      <summary>
+            The asceinding sorted array, but some keys are swaped places.
+            </summary>
+    </member>
+    <member name="F:Sorting.ArrayType.Reversed">
+      <summary>
+            The descending sorted array.
+            </summary>
+    </member>
+    <member name="F:Sorting.ArrayType.FewUnique">
+      <summary>
+            The definition FewUnique means that the array contains only few unique keys
+            and it is also not sorted.
+            </summary>
+    </member>
+    <member name="F:Sorting.ArrayType.Other">
+      <summary>
+            The other type of the array. The array may be entered by the user or it does not match any other type.
+            </summary>
+    </member>
+    <member name="T:Sorting.BogoSort`1">
+      <summary>
+            The sorting algorithm is based on the generate and test paradigm.<br />
+            The function successively generates permutations of its input until it finds one that is sorted.<br />
+            It is not considered one of efficient algorithms for sorting.<br />
+            It is recommended to sort with this algorithm no more than 10 elements,
+            because of the very bad time complexity (in case of using a standart low-mid desktop-CPU).<br />
+            The amount of comparizons is zero, because the algorithm does not compare keys,
+            though there is a method for checking if the array is sorted.
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.BogoSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the BogoSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.BogoSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.BubbleSort`1">
+      <summary>
+            The bubble sort, sometimes referred to as sinking sort,
+            is a simple sorting algorithm that repeatedly steps through the input list element by element,
+            comparing the current element with the one after it, swapping their values if needed.<br />
+            These passes through the list are repeated until no swap had to be performed during a pass,
+            meaning that the list has become fully sorted.<br />
+            The algorithm, which is a comparison sort, is named for the way the larger elements "bubble" up to the top of the list.<br />
+            This simple algorithm performs poorly in real world use and is used primarily as an educational tool. 
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.BubbleSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the BubbleSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.BubbleSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.CocktailSort`1">
+      <summary>
+            The cocktail shaker sort, also known as bidirectional bubble sort,
+            cocktail sort, shaker sort (which can also refer to a variant of selection sort),
+            ripple sort, shuffle sort, or shuttle sort, is an extension of bubble sort.<br />
+            The algorithm extends bubble sort by operating in two directions.<br />
+            While it improves on bubble sort by more quickly moving items to the beginning of the list,
+            it provides only marginal performance improvements.<br />
+            Like most variants of bubble sort, cocktail shaker sort is used primarily as an educational tool. 
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.CocktailSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the CocktailSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.CocktailSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.CombSort`1">
+      <summary>
+            The comb sort is mainly an improvement over the bubble sort.<br />
+            The bubble sort always compares adjacent values.
+            So all inversions are removed one by one.<br />
+            The comb sort improves on the bubble sort by using a gap of the size of more than 1.<br />
+            The gap starts with a large value and shrinks by a factor of 1.3 in every iteration until it reaches the value 1.<br />
+            Thus the comb sort removes more than one inversion count with one swap and performs better than Bubble Sort.
+            The shrink factor has been empirically found to be 1.3.<br />
+            Although it works better than Bubble Sort on average, worst-case remains O(n^2).
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.CombSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the CombSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.CombSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.GnomeSort`1">
+      <summary>
+            The gnome sort is a variation of the insertion sort sorting algorithm that does not use nested loops.<br />
+            It was first called stupid sort (not to be confused with bogosort), and then later named gnome sort.<br />
+            The gnome sort performs at least as many comparisons as insertion sort and has the same asymptotic run time characteristics.<br />
+            The sort works by building a sorted list one element at a time, getting each item to the proper place in a series of swaps.
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.GnomeSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the GnomeSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.GnomeSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.HeapSort`1">
+      <summary>
+            The heapsort can be thought of as an improved selection sort:
+            like selection sort, heapsort divides its input into a sorted and an unsorted region,
+            and it iteratively shrinks the unsorted region by extracting the largest element from it
+            and inserting it into the sorted region.<br />
+            Unlike selection sort,heapsort does not waste time with a linear-time scan of the unsorted region;
+            rather, heap sort maintains the unsorted region in a heap data structure to more quickly find the largest element in each step.<br />
+            Although somewhat slower in practice on most machines than a well-implemented quicksort,
+            it has the advantage of a more favorable worst-case O(n log n) runtime.<br />
+            Heapsort is an in-place algorithm, but it is not a stable sort.
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.HeapSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the HeapSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.HeapSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.InsertionSort`1">
+      <summary>
+            The insertion sort iterates, consuming one input element each repetition, and grows a sorted output list.<br />
+            At each iteration, insertion sort removes one element from the input data,
+            finds the location it belongs within the sorted list, and inserts it there.<br />
+            It repeats until no input elements remain.<br />
+            Sorting is typically done in-place, by iterating up the array, growing the sorted list behind it.<br />
+            At each array-position, it checks the value there against the largest value in the sorted list
+            (which happens to be next to it, in the previous array-position checked).<br />
+            If larger, it leaves the element in place and moves to the next.<br />
+            If smaller, it finds the correct position within the sorted list, shifts all the larger values up to make a space,
+            and inserts into that correct position. 
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.InsertionSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the InsertionSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.InsertionSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.IPrintableArraysInfo">
+      <summary>
+            The interface IPrintableArraysInfo defines required for the class Printer properties,
+            which contain information about input and output arrays.
+            </summary>
+    </member>
+    <member name="P:Sorting.IPrintableArraysInfo.InputArray">
+      <summary>
+            The input array for printing.<br />
+            It should be a digit or char array or AdvancedArray type.
+            </summary>
+    </member>
+    <member name="P:Sorting.IPrintableArraysInfo.InputArraySize">
+      <summary>
+            The length of the input array.
+            </summary>
+    </member>
+    <member name="P:Sorting.IPrintableArraysInfo.InputArrayType">
+      <summary>
+            The type of the input array. It is created
+            to show the character of the array.<br />
+            The arrays can be very different. Sometimes it is important to know
+            which array type was beeing contained while calculating.
+            </summary>
+    </member>
+    <member name="P:Sorting.IPrintableArraysInfo.IsInputArraySorted">
+      <summary>
+            Is the input array ascending sorted or not.
+            </summary>
+    </member>
+    <member name="P:Sorting.IPrintableArraysInfo.IsOutputArraySorted">
+      <summary>
+            Is the output array ascending sorted or not.
+            </summary>
+    </member>
+    <member name="P:Sorting.IPrintableArraysInfo.OutputArray">
+      <summary>
+            The output array for printing.<br />
+            It should be a digit or char array or AdvancedArray type.
+            </summary>
+    </member>
+    <member name="P:Sorting.IPrintableArraysInfo.OutputArraySize">
+      <summary>
+            The length of the output array.
+            </summary>
+    </member>
+    <member name="P:Sorting.IPrintableArraysInfo.OutputArrayType">
+      <summary>
+            The type of the output array. It is created
+            to show the character of the array.<br />
+            The arrays can be very different. Sometimes it is important to know
+            which array type was beeing contained while calculating.
+            </summary>
+    </member>
+    <member name="T:Sorting.ISortable">
+      <summary>
+            The interface ISortable defines some requires
+            to the classes, which contain methods to sort an array.
+            </summary>
+    </member>
+    <member name="P:Sorting.ISortable.AverageCase">
+      <summary>
+            The algorithm complexity in the average case.<br />
+            It defines the average case of an algorithm’s time complexity,
+            the Theta notation defines when the set of functions lies in both O(expression)
+            and Omega(expression), then Theta notation is used.<br />
+            This is how we define a time complexity average case for an algorithm. 
+            </summary>
+    </member>
+    <member name="P:Sorting.ISortable.BestCase">
+      <summary>
+            The algorithm complexity in the best case.<br />
+            The array may be already sorted, and
+            the best case will be "Ω(1)".<br />
+            It defines the best case of an algorithm’s time complexity,
+            the Omega notation defines whether the set of functions will grow
+            faster or at the same rate as the expression.<br />
+            Furthermore, it explains the minimum amount of time an algorithm
+            requires to consider all input values.
+            </summary>
+    </member>
+    <member name="P:Sorting.ISortable.Comparisons">
+      <summary>
+            The amount of compare operations.
+            </summary>
+    </member>
+    <member name="P:Sorting.ISortable.IsStabil">
+      <summary>
+            Is the sorting algorithm stabil or not?<br />
+            Stable sorting algorithms maintain the relative order of records
+            with equal keys.
+            </summary>
+    </member>
+    <member name="P:Sorting.ISortable.Name">
+      <summary>
+            The name of the algorithm.<br />The enumeration SortingAlgorithm contains
+            some algorithm names. The name DefaultSort is used by default.
+            </summary>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.Byte[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.Char[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.Decimal[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.Double[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.Int16[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.Int32[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.Int64[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.SByte[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.Single[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.UInt16[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.UInt32[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="M:Sorting.ISortable.Sort(System.UInt64[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="P:Sorting.ISortable.Swaps">
+      <summary>
+            The amount of the changing keys position operations.
+            </summary>
+    </member>
+    <member name="P:Sorting.ISortable.Time">
+      <summary>
+            The Stopwatch class instance.
+            </summary>
+    </member>
+    <member name="P:Sorting.ISortable.WorstCase">
+      <summary>
+            The algorithm complexity in the worst case.<br />
+            It defines worst-case time complexity by using the Big-O notation,
+            which determines the set of functions grows slower than or at the same rate as the expression.<br />
+            Furthermore, it explains the maximum amount of time an algorithm requires to consider all input values.
+            </summary>
+    </member>
+    <member name="P:Sorting.ISortable.WorstCaseSpaceComplexity">
+      <summary>
+            Memory usage (and use of other computer resources).<br />
+            In particular, some sorting algorithms are "in-place".<br />
+            Strictly, an in-place sort needs only O(1) memory beyond the items being sorted;
+            sometimes O(log n) additional memory is considered "in-place".
+            </summary>
+    </member>
+    <member name="T:Sorting.MergeSort`1">
+      <summary>
+            The merge sort is an efficient, general-purpose, and comparison-based sorting algorithm.<br />
+            Most implementations produce a stable sort, which means that the order of equal elements is the same in the input and output.
+            Conceptually, a merge sort works as follows:<br />
+            1.Dividing the unsorted list into n sublists, each containing one element (a list of one element is considered sorted).<br />
+            2.Repeatedly merging sublists to produce new sorted sublists until there is only one sublist remaining.<br />
+            This is the sorted list.
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.MergeSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the MergeSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.MergeSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.Printer">
+      <summary>
+            The class Printer represents capabilities for printing of
+            arrays and algorithms information to .txt- and .-xlsx files or
+            creating string report.<br />
+            The class does not check if the arrays are sorted by means of
+            the current sorting algorithms.<br />
+            The class works like a printer - without checking the correctness of algorithms,
+            arrays and so on. It prints the information to the .txt- or .xlsx-file.<br />
+            The classes ArraysInfo and AlgorithmsInfo form the basis of all reports.<br />
+            The txt-reports are creating by means of the class ConsoleTables:
+            https://github.com/khalidabuhakmeh/ConsoleTables<br />
+            The Microsoft Office Excel reports are creating with the help of the EPPlus library
+            (version 6.1.3 current as of 04/01/2023):
+            https://www.epplussoftware.com/
+            </summary>
+    </member>
+    <member name="M:Sorting.Printer.#ctor(Sorting.ArraysInfo,Sorting.AlgorithmsInfo)">
+      <summary>
+            Initializes a new instance of the Printer class.
+            </summary>
+      <param name="arrayInfo">Reference to the instance of the ArraysInfo class.</param>
+      <param name="algorithmInfo">&gt;Reference to the instance of the AlgorithmsInfo class.</param>
+      <exception cref="T:System.ArgumentNullException">One of the strings of the properties WorkingFolderPath or
+            ReportsFolderName is null.<br />
+            The parameter arraysInfo is null.<br />
+            The parameter algorithmsInfo is null.</exception>
+      <exception cref="T:System.ArgumentException">The argument of GetFolderPath() is not a member of Environment.SpecialFolder or
+            one of the strings of the properties WorkingFolderPath or ReportsFolderName
+            contains one or more of the invalid characters defined in GetInvalidPathChars().</exception>
+      <exception cref="T:System.PlatformNotSupportedException">The current platform is not supported.
+            Choose another WorkingFolderPath.</exception>
+    </member>
+    <member name="M:Sorting.Printer.#ctor(System.String,Sorting.ArraysInfo,Sorting.AlgorithmsInfo)">
+      <summary>
+            Initializes a new instance of the Printer class.
+            </summary>
+      <param name="folderPath">The path to the reports folder. The reports folder will be created automatically.</param>
+      <param name="arrayInfo">Reference to the instance of the ArraysInfo class.</param>
+      <param name="algorithmInfo">&gt;Reference to the instance of the AlgorithmsInfo class.</param>
+      <exception cref="T:System.ArgumentNullException">
+            The parameter folderPath is null.<br />
+            The parameter arraysInfo is null.<br />
+            The parameter algorithmsInfo is null.</exception>
+      <exception cref="T:System.ArgumentException">The folderPath is empty, contains only white spaces, or contains invalid characters.</exception>
+      <exception cref="T:System.IO.PathTooLongException">The folderPath exceed the system-defined maximum length.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">Access to the folderPath is denied.</exception>
+      <exception cref="T:System.Security.SecurityException">The caller does not have the required permissions for folderPath.</exception>
+      <exception cref="T:System.NotSupportedException">The folderPath contains a colon (:) in the middle of the string.</exception>
+      <exception cref="T:System.IO.IOException">The folderPath in the property cannot be used to create a directory.</exception>
+    </member>
+    <member name="P:Sorting.Printer.AlgorithmsInfo">
+      <summary>
+            The sorting algorithms information for printing.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">The ArgumentNullException is thrown due to the incorrect setting of the property.<br />
+            The property is null.</exception>
+    </member>
+    <member name="P:Sorting.Printer.ArraysInfo">
+      <summary>
+            The arrays information for printing.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">The ArgumentNullException is thrown due to the incorrect setting of the property.<br />
+            The property is null.</exception>
+    </member>
+    <member name="M:Sorting.Printer.GetExcelReport(System.Boolean,Sorting.ReportType,System.Int32)">
+      <summary>
+            The method generates an .xlsx-file with the report.<br />
+            The file will be saved in SortingReportsFolderPath.
+            </summary>
+      <param name="startAfterPrint">If this parameter is true, the file will be opened in the end.</param>
+      <param name="reportType">The report may contain the full arrays or it may also not contain these arrays.
+            By default the report will be with arrays.</param>
+      <param name="elementsPerRow">This parameter is created to control how many elements will be printed in a row.
+            By default this parameter equals 8000 elements.</param>
+    </member>
+    <member name="M:Sorting.Printer.GetStringReport(Sorting.ReportType)">
+      <summary>
+            The method generates a string with the report.
+            </summary>
+      <param name="reportType">The report may contain the full arrays or it may also not contain these arrays.
+            By default the report will be with arrays.</param>
+      <returns>The string with the report.</returns>
+    </member>
+    <member name="M:Sorting.Printer.GetTxtReport(System.Boolean,Sorting.ReportType)">
+      <summary>
+            The method generates an .txt-file with the report.<br />
+            The file will be saved in SortingReportsFolderPath.
+            </summary>
+      <param name="startAfterPrint">If this parameter is true, the file will be opened in the end.</param>
+      <param name="reportType">The report may contain the full arrays or it may also not contain these arrays.
+            By default the report will be with arrays.</param>
+    </member>
+    <member name="P:Sorting.Printer.ReportsFolderName">
+      <summary>
+            The name of the folder for reports.<br />
+            The default name is "Sorting algorithms reports".<br />
+            It changes according to the system settings.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">The ArgumentNullException is thrown due to the incorrect setting of the property.<br />
+            The property is null.</exception>
+      <exception cref="T:System.ArgumentException">The ArgumentException is thrown due to the incorrect setting of the property.<br />
+            The property may be empty.<br />
+            It may contain the not allowed names: LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9, 
+            COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, PRN, AUX, NUL, CON, CLOCK$,
+            dot character (.), and two dot characters (..).<br />
+            It may contain the following reserved characters: &lt; T&gt; : " / \ | ? *.<br />
+            It may contain invalid file or path name characters.</exception>
+      <exception cref="T:System.IO.PathTooLongException">The PathTooLongException is thrown due to the incorrect setting of the property.<br />
+            The property has more than 255 characters.</exception>
+      <exception cref="T:System.Security.SecurityException">The SecurityException is thrown due to the incorrect setting of the property.<br />
+            The caller does not have the required permissions.</exception>
+      <exception cref="T:System.NotSupportedException">The NotSupportedException is thrown due to the incorrect setting of the property.<br />
+            The property contains a colon (:) in the middle of the string.</exception>
+    </member>
+    <member name="P:Sorting.Printer.SortingReportsFolderPath">
+      <summary>
+            The path to the working folder (the folder for reports).
+            The folder is included to this path.<br /></summary>
+      <exception cref="T:System.ArgumentNullException">The ArgumentNullException is thrown due to the incorrect setting of the property.<br />
+            The property is null.</exception>
+      <exception cref="T:System.ArgumentException">The ArgumentException is thrown due to the incorrect setting of the property.<br />
+            The property is empty, contains only white spaces, or contains invalid characters.</exception>
+      <exception cref="T:System.IO.PathTooLongException">The PathTooLongException is thrown due to the incorrect setting of the property.<br />
+            The property exceed the system-defined maximum length.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">The UnauthorizedAccessException is thrown due to the incorrect setting of the property.<br />
+            Access to the path in the property is denied.</exception>
+      <exception cref="T:System.Security.SecurityException">The SecurityException is thrown due to the incorrect setting of the property.<br />
+            The caller does not have the required permissions.</exception>
+      <exception cref="T:System.NotSupportedException">The NotSupportedException is thrown due to the incorrect setting of the property.<br />
+            The property contains a colon (:) in the middle of the string.</exception>
+      <exception cref="T:System.IO.IOException">The IOException is thrown due to the incorrect setting of the property.<br />
+            The path in the property cannot be used to create a directory.</exception>
+    </member>
+    <member name="P:Sorting.Printer.WorkingFolderPath">
+      <summary>
+            The path to the working folder (the folder for reports).
+            The folder is not included to this path.<br />
+            The default path is the directory "My documents".
+            </summary>
+      <exception cref="T:System.ArgumentNullException">The ArgumentNullException is thrown due to the incorrect setting of the property.<br />
+            The property is null.</exception>
+      <exception cref="T:System.ArgumentException">The ArgumentException is thrown due to the incorrect setting of the property.<br />
+            The property is empty, contains only white spaces, or contains invalid characters.</exception>
+      <exception cref="T:System.IO.PathTooLongException">The PathTooLongException is thrown due to the incorrect setting of the property.<br />
+            The property exceed the system-defined maximum length.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">The UnauthorizedAccessException is thrown due to the incorrect setting of the property.<br />
+            Access to the path in the property is denied.</exception>
+      <exception cref="T:System.Security.SecurityException">The SecurityException is thrown due to the incorrect setting of the property.<br />
+            The caller does not have the required permissions.</exception>
+      <exception cref="T:System.NotSupportedException">The NotSupportedException is thrown due to the incorrect setting of the property.<br />
+            The property contains a colon (:) in the middle of the string.</exception>
+      <exception cref="T:System.IO.IOException">The IOException is thrown due to the incorrect setting of the property.<br />
+            The path in the property cannot be used to create a directory.</exception>
+    </member>
+    <member name="T:Sorting.QuickSort`1">
+      <summary>
+            The quicksort is an efficient, general-purpose sorting algorithm.<br />
+            It was developed by British computer scientist Tony Hoare in 1959 and published in 1961.
+            It is still a commonly used algorithm for sorting.<br />
+            Overall, it is slightly faster than merge sort and heapsort for randomized data, particularly on larger distributions.<br />
+            This is a divide-and-conquer algorithm.
+            It works by selecting a 'pivot' element from the array
+            and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot.<br />
+            For this reason, it is sometimes called partition-exchange sort.<br />
+            The sub-arrays are then sorted recursively. This can be done in-place, requiring small additional amounts of memory to perform the sorting.
+            Most implementations of quicksort are not stable, meaning that the relative order of equal sort items is not preserved.<br />
+            This implementation is also not stabil.
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.QuickSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the QuickSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.QuickSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.ReportType">
+      <summary>
+            The enumeration ReportType contains types of the report.<br />
+            The class Printer allows to create different types of the reports.
+            In order to choose the require type there is this enumeration.<br />
+            The printing of the large array may take a while because oftentimes
+            it is quicker to sort the whole array than  that is why
+            it can be more rationally not to print the arrays.
+            </summary>
+    </member>
+    <member name="F:Sorting.ReportType.WithArray">
+      <summary>
+            The report with input and output arrays.
+            </summary>
+    </member>
+    <member name="F:Sorting.ReportType.WithoutArray">
+      <summary>
+            The report without input and output arrays.
+            </summary>
+    </member>
+    <member name="T:Sorting.SelectionSort`1">
+      <summary>
+            The selection sort is an in-place comparison sorting algorithm.<br />
+            It has an O(n^2) time complexity, which makes it inefficient on large lists,
+            and generally performs worse than the similar insertion sort.
+            It is noted for its simplicity and has performance advantages over more complicated algorithms in certain situations,
+            particularly where auxiliary memory is limited.<br />
+            The algorithm divides the input list into two parts:
+            a sorted sublist of items which is built up from left to right at the front (left) of the list
+            and a sublist of the remaining unsorted items that occupy the rest of the list.<br />
+            Initially, the sorted sublist is empty and the unsorted sublist is the entire input list.<br />
+            The algorithm proceeds by finding the smallest (or largest, depending on sorting order) element in the unsorted sublist,
+            exchanging (swapping) it with the leftmost unsorted element (putting it in sorted order),
+            and moving the sublist boundaries one element to the right.
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.SelectionSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the SelectionSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.SelectionSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.ShellSort`1">
+      <summary>
+            The shellsort, also known as Shell sort or Shell's method, is an in-place comparison sort.<br />
+            It can be seen as either a generalization of sorting by exchange (bubble sort) or sorting by insertion (insertion sort).<br />
+            The method starts by sorting pairs of elements far apart from each other,
+            then progressively reducing the gap between elements to be compared.<br />
+            By starting with far apart elements, it can move some out-of-place elements into position faster than a simple nearest neighbor exchange.<br />
+            The running time of Shellsort is heavily dependent on the gap sequence it uses.
+            For many practical variants, determining their time complexity remains an open problem. 
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.ShellSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the ShellSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.ShellSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.SortingAlgorithm">
+      <summary>
+            The enumeration SortingAlgorithm contains names of sorting algorithms.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.DefaultSort">
+      <summary>
+            The default value for the sorting algorithm name.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.BubbleSort">
+      <summary>
+            The bubble sort, sometimes referred to as sinking sort,
+            is a simple sorting algorithm that repeatedly steps through the input list element by element,
+            comparing the current element with the one after it, swapping their values if needed.<br />
+            These passes through the list are repeated until no swap had to be performed during a pass,
+            meaning that the list has become fully sorted.<br />
+            The algorithm, which is a comparison sort, is named for the way the larger elements "bubble" up to the top of the list.<br />
+            This simple algorithm performs poorly in real world use and is used primarily as an educational tool. 
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.CocktailSort">
+      <summary>
+            The cocktail shaker sort, also known as bidirectional bubble sort,
+            cocktail sort, shaker sort (which can also refer to a variant of selection sort),
+            ripple sort, shuffle sort, or shuttle sort, is an extension of bubble sort.<br />
+            The algorithm extends bubble sort by operating in two directions.<br />
+            While it improves on bubble sort by more quickly moving items to the beginning of the list,
+            it provides only marginal performance improvements.<br />
+            Like most variants of bubble sort, cocktail shaker sort is used primarily as an educational tool. 
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.InsertionSort">
+      <summary>
+            The insertion sort iterates, consuming one input element each repetition, and grows a sorted output list.<br />
+            At each iteration, insertion sort removes one element from the input data,
+            finds the location it belongs within the sorted list, and inserts it there.<br />
+            It repeats until no input elements remain.<br />
+            Sorting is typically done in-place, by iterating up the array, growing the sorted list behind it.<br />
+            At each array-position, it checks the value there against the largest value in the sorted list
+            (which happens to be next to it, in the previous array-position checked).<br />
+            If larger, it leaves the element in place and moves to the next.<br />
+            If smaller, it finds the correct position within the sorted list, shifts all the larger values up to make a space,
+            and inserts into that correct position. 
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.GnomeSort">
+      <summary>
+            The gnome sort is a variation of the insertion sort sorting algorithm that does not use nested loops.<br />
+            It was first called stupid sort (not to be confused with bogosort), and then later named gnome sort.<br />
+            The gnome sort performs at least as many comparisons as insertion sort and has the same asymptotic run time characteristics.<br />
+            The sort works by building a sorted list one element at a time, getting each item to the proper place in a series of swaps.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.MergeSort">
+      <summary>
+            The merge sort is an efficient, general-purpose, and comparison-based sorting algorithm.<br />
+            Most implementations produce a stable sort, which means that the order of equal elements is the same in the input and output.
+            Conceptually, a merge sort works as follows:<br />
+            1.Dividing the unsorted list into n sublists, each containing one element (a list of one element is considered sorted).<br />
+            2.Repeatedly merging sublists to produce new sorted sublists until there is only one sublist remaining.<br />
+            This is the sorted list.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.TreeSort">
+      <summary>
+            Tree sort is a sorting technique that is totally dependent on the data structure of a binary search tree.<br />
+            In this sorting technique first, the binary search tree is created from the given data.<br />
+            A binary search tree is a special type of binary tree in which,
+            for each parent node, the left child will be lesser or smaller than the parent node
+            and the right child will be equal or greater than the parent node.<br />
+            In the case of a binary search tree, the inorder traversal always displays the elements in sorted order.
+            Hence, this property is used in this sorting.<br />
+            After creating the binary search tree, only the inorder traversal is performed to display the array in sorted order.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.SelectionSort">
+      <summary>
+            The selection sort is an in-place comparison sorting algorithm.<br />
+            It has an O(n^2) time complexity, which makes it inefficient on large lists,
+            and generally performs worse than the similar insertion sort.
+            It is noted for its simplicity and has performance advantages over more complicated algorithms in certain situations,
+            particularly where auxiliary memory is limited.<br />
+            The algorithm divides the input list into two parts:
+            a sorted sublist of items which is built up from left to right at the front (left) of the list
+            and a sublist of the remaining unsorted items that occupy the rest of the list.<br />
+            Initially, the sorted sublist is empty and the unsorted sublist is the entire input list.<br />
+            The algorithm proceeds by finding the smallest (or largest, depending on sorting order) element in the unsorted sublist,
+            exchanging (swapping) it with the leftmost unsorted element (putting it in sorted order),
+            and moving the sublist boundaries one element to the right.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.CombSort">
+      <summary>
+            The comb sort is mainly an improvement over the bubble sort.<br />
+            The bubble sort always compares adjacent values.
+            So all inversions are removed one by one.<br />
+            The comb sort improves on the bubble sort by using a gap of the size of more than 1.<br />
+            The gap starts with a large value and shrinks by a factor of 1.3 in every iteration until it reaches the value 1.<br />
+            Thus the comb sort removes more than one inversion count with one swap and performs better than Bubble Sort.
+            The shrink factor has been empirically found to be 1.3.<br />
+            Although it works better than Bubble Sort on average, worst-case remains O(n^2).
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.ShellSort">
+      <summary>
+            The shellsort, also known as Shell sort or Shell's method, is an in-place comparison sort.<br />
+            It can be seen as either a generalization of sorting by exchange (bubble sort) or sorting by insertion (insertion sort).<br />
+            The method starts by sorting pairs of elements far apart from each other,
+            then progressively reducing the gap between elements to be compared.<br />
+            By starting with far apart elements, it can move some out-of-place elements into position faster than a simple nearest neighbor exchange.<br />
+            The running time of Shellsort is heavily dependent on the gap sequence it uses.
+            For many practical variants, determining their time complexity remains an open problem. 
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.HeapSort">
+      <summary>
+            The heapsort can be thought of as an improved selection sort:
+            like selection sort, heapsort divides its input into a sorted and an unsorted region,
+            and it iteratively shrinks the unsorted region by extracting the largest element from it
+            and inserting it into the sorted region.<br />
+            Unlike selection sort,heapsort does not waste time with a linear-time scan of the unsorted region;
+            rather, heap sort maintains the unsorted region in a heap data structure to more quickly find the largest element in each step.<br />
+            Although somewhat slower in practice on most machines than a well-implemented quicksort,
+            it has the advantage of a more favorable worst-case O(n log n) runtime.<br />
+            Heapsort is an in-place algorithm, but it is not a stable sort.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.QuickSort">
+      <summary>
+            The quicksort is an efficient, general-purpose sorting algorithm.<br />
+            It was developed by British computer scientist Tony Hoare in 1959 and published in 1961.
+            It is still a commonly used algorithm for sorting.<br />
+            Overall, it is slightly faster than merge sort and heapsort for randomized data, particularly on larger distributions.<br />
+            This is a divide-and-conquer algorithm.
+            It works by selecting a 'pivot' element from the array
+            and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot.<br />
+            For this reason, it is sometimes called partition-exchange sort.<br />
+            The sub-arrays are then sorted recursively. This can be done in-place, requiring small additional amounts of memory to perform the sorting.
+            Most implementations of quicksort are not stable, meaning that the relative order of equal sort items is not preserved.<br />
+            This implementation is also not stabil.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.StoogeSort">
+      <summary>
+            The stooge sort is a recursive sorting algorithm.<br />
+            It is notable for its exceptionally bad time complexity of O(nlog 3 / log 1.5 ) = O(n2.7095...).<br />
+            The running time of the algorithm is thus slower compared to reasonable sorting algorithms,
+            and is slower than bubble sort, a canonical example of a fairly inefficient sort.
+            It is however more efficient than the slow sort.<br />
+            The algorithm is defined as follows:<br />
+            If the value at the start is larger than the value at the end, swap them.<br />
+            If there are 3 or more elements in the list, then:<br />
+            1.Stooge sort the initial 2/3 of the list;<br />
+            2.Stooge sort the final 2/3 of the list;<br />
+            3.Stooge sort the initial 2/3 of the list again.<br />
+            It is important to get the integer sort size used in the recursive calls by rounding the 2/3 upwards,
+            e.g. rounding 2/3 of 5 should give 4 rather than 3, as otherwise the sort can fail on certain data. 
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingAlgorithm.BogoSort">
+      <summary>
+            The sorting algorithm is based on the generate and test paradigm.<br />
+            The function successively generates permutations of its input until it finds one that is sorted.<br />
+            It is not considered one of efficient algorithms for sorting.<br />
+            It is recommended to sort with this algorithm no more than 10 elements,
+            because of the very bad time complexity (in case of using a standart low-mid desktop-CPU).<br />
+            The amount of comparizons is zero, because the algorithm does not compare keys,
+            though there is a method for checking if the array is sorted.
+            </summary>
+    </member>
+    <member name="T:Sorting.SortingType">
+      <summary>
+            The enumeration SortingType contains two sorting types:<br />
+            1.Ascending sorting - upwards;<br />
+            2.Descending sorting - downwards.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingType.Ascending">
+      <summary>
+            Upwards sorting.
+            </summary>
+    </member>
+    <member name="F:Sorting.SortingType.Descending">
+      <summary>
+            Downwards sorting.
+            </summary>
+    </member>
+    <member name="T:Sorting.StoogeSort`1">
+      <summary>
+            The stooge sort is a recursive sorting algorithm.<br />
+            It is notable for its exceptionally bad time complexity of O(nlog 3 / log 1.5 ) = O(n2.7095...).<br />
+            The running time of the algorithm is thus slower compared to reasonable sorting algorithms,
+            and is slower than bubble sort, a canonical example of a fairly inefficient sort.
+            It is however more efficient than the slow sort.<br />
+            The algorithm is defined as follows:<br />
+            If the value at the start is larger than the value at the end, swap them.<br />
+            If there are 3 or more elements in the list, then:<br />
+            1.Stooge sort the initial 2/3 of the list;<br />
+            2.Stooge sort the final 2/3 of the list;<br />
+            3.Stooge sort the initial 2/3 of the list again.<br />
+            It is important to get the integer sort size used in the recursive calls by rounding the 2/3 upwards,
+            e.g. rounding 2/3 of 5 should give 4 rather than 3, as otherwise the sort can fail on certain data. 
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.StoogeSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the StoogeSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.StoogeSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+    <member name="T:Sorting.TreeSort`1">
+      <summary>
+            Tree sort is a sorting technique that is totally dependent on the data structure of a binary search tree.<br />
+            In this sorting technique first, the binary search tree is created from the given data.<br />
+            A binary search tree is a special type of binary tree in which,
+            for each parent node, the left child will be lesser or smaller than the parent node
+            and the right child will be equal or greater than the parent node.<br />
+            In the case of a binary search tree, the inorder traversal always displays the elements in sorted order.
+            Hence, this property is used in this sorting.<br />
+            After creating the binary search tree, only the inorder traversal is performed to display the array in sorted order.
+            </summary>
+      <typeparam name="T">sbyte, byte, short, ushort, int, uint,
+            long, ulong, float, double, decimal, char</typeparam>
+    </member>
+    <member name="M:Sorting.TreeSort`1.#ctor">
+      <summary>
+            Initializes a new instance of the BubbleSort class.
+            </summary>
+    </member>
+    <member name="M:Sorting.TreeSort`1.Sort(`0[],Sorting.SortingType)">
+      <summary>
+            The sorting algorithm method.<br />It creates a copy
+            of the input array and works only with the new array.<br />
+            The method returns a reference to the new sorted array.
+            </summary>
+      <param name="input">The reference to the input array.</param>
+      <param name="sortingType">The type of sorting.<br />
+            The algorithm can sort ascending also descending.<br />
+            This parameter should be one of the enumeration SortingType values: SortingType.Ascending or
+            SortingType.Descending.<br />
+            The default value is SortingType.Ascending.</param>
+      <returns>The reference to the new sorted array.
+            The input array will stay the same.</returns>
+    </member>
+  </members>
+</doc>

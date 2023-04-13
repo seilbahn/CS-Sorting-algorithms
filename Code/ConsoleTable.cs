@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace ConsoleTables
 {
-    public class ConsoleTable
+    internal class ConsoleTable
     {
         public IList<object> Columns { get; set; }
         public IList<object[]> Rows { get; protected set; }
@@ -276,7 +276,7 @@ namespace ConsoleTables
         }
     }
 
-    public class ConsoleTableOptions
+    internal class ConsoleTableOptions
     {
         public IEnumerable<string> Columns { get; set; } = new List<string>();
         public bool EnableCount { get; set; } = true;
@@ -292,7 +292,7 @@ namespace ConsoleTables
         public TextWriter OutputTo { get; set; } = Console.Out;
     }
 
-    public enum Format
+    internal enum Format
     {
         Default = 0,
         MarkDown = 1,
@@ -300,7 +300,7 @@ namespace ConsoleTables
         Minimal = 3
     }
 
-    public enum Alignment
+    internal enum Alignment
     {
         Left,
         Right
